@@ -1,8 +1,3 @@
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
-
--- Only required if you have packer configured as `opt`
-vim.cmd.packadd('packer.nvim')
-
 local ensure_packer = function()
     local fn = vim.fn
     local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
@@ -13,6 +8,7 @@ local ensure_packer = function()
     end
     return false
 end
+
 
 local packer_bootstrap = ensure_packer()
 return require('packer').startup(function(use)
@@ -74,7 +70,6 @@ return require('packer').startup(function(use)
     }
 
     -- todo
-
     use { "folke/todo-comments.nvim",
         requires = { 'nvim-lua/plenary.nvim' },
     }
@@ -136,24 +131,30 @@ return require('packer').startup(function(use)
 
     -- LSP
     use { "simrat39/rust-tools.nvim" }
-    use { 'tzachar/cmp-tabnine', run = './install.sh', requires = 'hrsh7th/nvim-cmp' }
+    local tabnine_install = './install.sh'
+    if vim.fn.has('win32') then
+        tabnine_install = 'powershell ./install.ps1'
+    end
+    use { 'tzachar/cmp-tabnine', run = tabnine_install, requires = 'hrsh7th/nvim-cmp' }
     --  use {
     --      "jcdickinson/http.nvim",
     --      run = "cargo build --workspace --release"
     --  }
-    -- cmp codium
-    use {
-        "jcdickinson/codeium.nvim",
-        requires = {
-            --          "jcdickinson/http.nvim",
-            "nvim-lua/plenary.nvim",
-            "hrsh7th/nvim-cmp",
-        },
-        config = function()
-            require("codeium").setup({
-            })
-        end
-    }
+    if vim.fn.has('win32') == 0 then
+        -- cmp codium
+        use {
+            "jcdickinson/codeium.nvim",
+            requires = {
+                --          "jcdickinson/http.nvim",
+                "nvim-lua/plenary.nvim",
+                "hrsh7th/nvim-cmp",
+            },
+            config = function()
+                require("codeium").setup({
+                })
+            end
+        }
+    end
     -- official codium
     -- use { 'Exafunction/codeium.vim' }
 
@@ -224,6 +225,9 @@ return require('packer').startup(function(use)
     use("laytan/cloak.nvim")
 
     use('gsuuon/llm.nvim')
+
+    -- symbols outline
+    use { 'simrat39/symbols-outline.nvim' }
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

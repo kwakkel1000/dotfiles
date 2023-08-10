@@ -1,24 +1,28 @@
---local lsp = require("lsp-zero")
 local rust_tools = require('rust-tools')
 local lspconfig = require('lspconfig')
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-local lspkind = require('lspkind')
 local compare = require('cmp.config.compare')
 
---lsp.preset("recommended")
 
-
-local ensure_installed = {
-    'awk_ls',
-    'bashls',
-    'cssls',
-    'html',
-    'jsonls',
-    'lua_ls',
-    'pylsp',
-    'rust_analyzer',
-    'tsserver',
-}
+local ensure_installed = {}
+if vim.fn.has('win32') then
+    ensure_installed = {
+        'lua_ls',
+        'rust_analyzer',
+    }
+else
+    ensure_installed = {
+        'awk_ls',
+        'bashls',
+        'cssls',
+        'html',
+        'jsonls',
+        'lua_ls',
+        'pylsp',
+        'rust_analyzer',
+        'tsserver',
+    }
+end
 
 require('mason').setup()
 require('mason-lspconfig').setup({
@@ -36,12 +40,6 @@ require('mason-lspconfig').setup_handlers({
     end,
 })
 
---lsp.ensure_installed({
---    'lua_ls',
---    'tsserver',
---    'rust_analyzer',
---})
---
 ---- Fix Undefined global 'vim'
 lspconfig.lua_ls.setup {
     settings = {
@@ -65,17 +63,6 @@ lspconfig.lua_ls.setup {
         },
     },
 }
-----lsp.configure('lua-language-server', {
---lsp.configure('lua_ls', {
---    settings = {
---        Lua = {
---            diagnostics = {
---                globals = { 'vim' }
---            }
---        }
---    }
---})
-
 
 --vim.lsp.set_log_level 'debug'
 --vim.lsp.start({
@@ -96,10 +83,6 @@ if not configs.test_lsp then
         },
     }
 end
-
---lspconfig.test_lsp.setup {
---    capabilities = lsp_capabilities,
---}
 
 -- luasnip setup
 local luasnip = require 'luasnip'
@@ -322,35 +305,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
         --    -- Enable completion triggered by <c-x><c-o>
         --    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
         --
-        --    -- Buffer local mappings.
-        --    -- See `:help vim.lsp.*` for documentation on any of the below functions
-        --    local opts = { buffer = ev.buf }
-        --    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-        --    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-        --    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-        --    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-        --    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-        --    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-        --    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-        --    vim.keymap.set('n', '<space>wl', function()
-        --      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        --    end, opts)
-        --    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-        --    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-        --    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-        --    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-        --    vim.keymap.set('n', '<space>f', function()
-        --      vim.lsp.buf.format { async = true }
-        --    end, opts)
     end,
 })
-
-
---lsp.on_attch = on_attach
---
---lsp.skip_server_setup({ 'rust_analyzer' })
---
---lsp.setup()
 
 vim.diagnostic.config({
     virtual_text = true
