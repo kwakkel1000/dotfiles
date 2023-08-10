@@ -31,7 +31,7 @@ require('mason-lspconfig').setup({
 
 require('mason-lspconfig').setup_handlers({
     function(server_name)
-        if server_name ~= "rust_analyzer" then
+        if (server_name ~= "rust_analyzer" and server_name ~= "lua_ls") then
             lspconfig[server_name].setup({
                 capabilities = lsp_capabilities,
                 --                root_dir = vim.lsp.buf.list_workspace_folders,
@@ -40,6 +40,10 @@ require('mason-lspconfig').setup_handlers({
     end,
 })
 
+local lua_check_third_party = true
+if vim.fn.has('win32') then
+    lua_check_third_party = false
+end
 ---- Fix Undefined global 'vim'
 lspconfig.lua_ls.setup {
     settings = {
@@ -55,6 +59,7 @@ lspconfig.lua_ls.setup {
             workspace = {
                 -- Make the server aware of Neovim runtime files
                 library = vim.api.nvim_get_runtime_file("", true),
+                checkThirdParty = lua_check_third_party,
             },
             -- Do not send telemetry data containing a randomized but unique identifier
             telemetry = {
