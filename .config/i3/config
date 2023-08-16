@@ -26,11 +26,11 @@ font pango: Ubuntu Mono Nerd Font 10
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --color=232323 --nofork
+#exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --color=232323 --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
+exec_always --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -57,6 +57,34 @@ bindsym $mod+space exec "rofi -modi drun -show drun -config .config/rofi/config.
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
+
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+
+# LOCKING
+# suspend after 15 minutes
+exec_always --no-startup-id xset dpms 0 900 900
+# lock when suspended
+exec_always --no-startup-id xss-lock -- ~/.dotfiles/lock.sh 
+
+# don't call the lock screen, turn screen off which triggers the lockscreen (above)
+bindsym $mod+l exec "xset dpms force off"
+
+#bindsym $mod+l exec ~/.dotfiles/lock.sh
+#$bindsym $mod+l lock_then_off()
+#bindsym $mod+l exec "i3lock --color=232323 & sleep 5 && xset dpms force off"
+#exec --no-startup-id xautolock -time 15 -locker "i3lock --color=232323 & sleep 5 && xset dpms force off"
+#exec_always --no-startup-id xautolock -time 15 -locker "i3lock --color=232323 & sleep 5 && xset dpms force off"
+
+# Brightness
+bindsym XF86MonBrightnessUp exec brightnessctl s +10%
+bindsym XF86MonBrightnessDown exec brightnessctl s 10%-
 
 # change focus
 #bindsym $mod+j focus left
@@ -119,35 +147,38 @@ workspace_auto_back_and_forth yes
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1"
 set $ws2 "2 slack"
-set $ws3 "3 web"
+set $ws3 "3 note"
 set $ws4 "4 web"
-set $ws5 "5 shell"
-set $ws6 "6 draw"
-set $ws7 "7 web"
-set $ws8 "8 web"
-set $ws9 "9 shell"
-set $ws10 "10 shell"
-set $ws11 "11 shell"
-set $ws12 "12 web"
-set $ws13 "13 web"
+set $ws5 "5 web"
+set $ws6 "6 web"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+set $ws11 "11"
+set $ws12 "12"
+set $ws13 "13"
 set $ws14 "14"
 set $ws15 "15"
 set $ws16 "16 kvm"
 set $ws17 "17 ansible"
 set $ws18 "18"
-set $ws19 "19 vscode"
+set $ws19 "19 code"
 set $ws20 "20 postman"
 
-workspace 1 output eDP-1
-workspace "2 slack" output DP-3-3 DP-3
-workspace "3 web" output DP-3-3 DP-3
-workspace "4 web" output DP-3-3 DP-3
-workspace "5 shell" output DP-3-3 DP-3
-workspace "6 draw" output DP-3-3 DP-3
-workspace 7 output DP-3-3 DP-3
-workspace 8 output DP-3-3 DP-3
-workspace 9 output DP-3-3 DP-3
-workspace 10 output DP-3-3 DP-3
+set $laptop_display eDP-1
+set $second_display DP-3-2
+
+workspace 1 output $laptop_display
+workspace "2 slack" output $second_display DP-3
+workspace "3 note" output $second_display DP-3
+workspace "4 web" output $second_display DP-3
+workspace "5 web" output $second_display DP-3
+workspace "6 web" output $second_display DP-3
+workspace 7 output $second_display DP-3
+workspace 8 output $second_display DP-3
+workspace 9 output $second_display DP-3
+workspace 10 output $second_display DP-3
 workspace 11 output primary
 workspace 12 output primary
 workspace 13 output primary
@@ -156,8 +187,8 @@ workspace 15 output primary
 workspace 16 output primary
 workspace 17 output primary
 workspace 18 output primary
-workspace "19 code" output DP-3-2 DP-3
-workspace "20 postman" output DP-3-3 DP-3
+workspace "19 code" output $second_display DP-3
+workspace "20 postman" output $second_display DP-3
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -204,20 +235,6 @@ bindsym $mod+Shift+Ctrl+8 move container to workspace number $ws18
 bindsym $mod+Shift+Ctrl+9 move container to workspace number $ws19
 bindsym $mod+Shift+Ctrl+0 move container to workspace number $ws20
 
-# reload the configuration file
-bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-
-#bindsym $mod+l exec "i3lock"
-bindsym $mod+l exec "i3lock --color=232323 & sleep 5 && xset dpms force off"
-#$bindsym $mod+l lock_then_off()
-exec --no-startup-id xautolock -time 15 -locker "i3lock --color=232323 & sleep 5 && xset dpms force off"
-
-bindsym XF86MonBrightnessUp exec brightnessctl s +10%
-bindsym XF86MonBrightnessDown exec brightnessctl s 10%-
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -253,12 +270,6 @@ bar {
 }
 
 
-
-#lock_then_off() {
-#  i3lock
-#  sleep 300
-#  xset dpms force off
-#}
 ##=================================================##
 #      *** Workspace specific settings ***          #
 ##=================================================##
@@ -266,18 +277,18 @@ assign [class="barrier"] $ws1
 assign [class="Arandr"] $ws1
 assign [class="htop"] $ws1
 assign [class="Slack"] $ws2
-assign [class="Firefox"] $ws3
+assign [class="Firefox"] $ws4
 assign [class="draw.io"] $ws6
 assign [class="Virt-manager"] $ws16
 
 
 #autostart
-exec nice -n 19 barrier
-exec htop
-exec arandr
-exec slack
-#exec virt-manager
-exec firefox
-#exec drawio
-exec --no-startup-id nitrogen --restore
-exec compton --config ~/.config/compton.conf
+exec --no-startup-id nice -n 19 barrier
+exec --no-startup-id htop
+exec --no-startup-id arandr
+exec --no-startup-id slack
+#exec --no-startup-id virt-manager
+exec --no-startup-id firefox
+#exec --no-startup-id drawio
+exec_always --no-startup-id nitrogen --restore
+exec_always --no-startup-id compton --config ~/.config/compton.conf

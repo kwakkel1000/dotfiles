@@ -116,6 +116,16 @@ return require('packer').startup(function(use)
     use("tpope/vim-fugitive")
     use("nvim-treesitter/nvim-treesitter-context");
 
+    -- Autocompletion
+    use { 'hrsh7th/nvim-cmp', commit = 'c4e491a87eeacf0408902c32f031d802c7eafce8' }
+    use { 'hrsh7th/cmp-buffer' }
+    use { 'hrsh7th/cmp-path' }
+    use { 'hrsh7th/cmp-cmdline' }
+    use { 'saadparwaiz1/cmp_luasnip' }
+    use { 'hrsh7th/cmp-nvim-lsp' }
+    use { 'hrsh7th/cmp-nvim-lsp-signature-help' }
+    use { 'hrsh7th/cmp-nvim-lua' }
+
     -- color brackets
     use("hiphish/rainbow-delimiters.nvim");
 
@@ -168,15 +178,6 @@ return require('packer').startup(function(use)
     use { 'williamboman/mason-lspconfig.nvim' }
     use { 'mrded/nvim-lsp-notify' }
 
-    -- Autocompletion
-    use { 'hrsh7th/nvim-cmp' }
-    use { 'hrsh7th/cmp-buffer' }
-    use { 'hrsh7th/cmp-path' }
-    use { 'hrsh7th/cmp-cmdline' }
-    use { 'saadparwaiz1/cmp_luasnip' }
-    use { 'hrsh7th/cmp-nvim-lsp' }
-    use { 'hrsh7th/cmp-nvim-lsp-signature-help' }
-    use { 'hrsh7th/cmp-nvim-lua' }
     -- fancy pictograms
     use { 'onsails/lspkind.nvim' }
     -- use { 'tzachar/cmp-tabnine' }

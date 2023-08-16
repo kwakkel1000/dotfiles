@@ -1,3 +1,5 @@
+!autorandr/postswitch
+!autorandr/postswitch.d/*
 !compton.conf
 !i3/config
 !nvim/
