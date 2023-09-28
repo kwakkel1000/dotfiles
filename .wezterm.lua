@@ -20,6 +20,20 @@ config.window_decorations = "RESIZE"
 
 --config.font = wezterm.font = 'Ubu'
 
+--config.window_background_image = '/home/gijsk/bg/dark-eclipse.png'
+config.window_background_image = '/home/gijsk/bg/1649074ecd03634e05639d767e131258.jpeg'
+
+config.window_background_image_hsb = {
+    -- Darken the background image by reducing it to 1/3rd
+    brightness = 0.05,
+
+    -- You can adjust the hue by scaling its value.
+    -- a multiplier of 1.0 leaves the value unchanged.
+    hue = 1.0,
+
+    -- You can adjust the saturation also.
+    saturation = 1.0,
+}
 
 wezterm.on('user-var-changed', function(window, pane, name, value)
     local overrides = window:get_config_overrides() or {}

@@ -1,12 +1,14 @@
-#UBUNTU
-#
-apt install i3
+# UBUNTU
 
-apt install htop screen sudo git git-lfs ripgrep zsh pavucontrol
-apt install arandr autorandr xss-lock scrot nitrogen compton brightnessctl rofi
+## Installing packages
 
-barrier
+    apt install i3
 
-neovim (nightly)
-
-obsidian
+    apt install htop screen sudo git git-lfs ripgrep zsh pavucontrol
+    apt install arandr autorandr xss-lock scrot nitrogen compton brightnessctl rofi
+    
+    barrier
+    
+    neovim (nightly)
+    
+    obsidian

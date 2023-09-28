@@ -1,0 +1,21 @@
+{
+    "lspconfig": {
+        "rust_analyzer": {
+            "rust-analyzer": {
+                "check": {
+                    "overrideCommand": [
+                        "cargo",
+                        "clippy",
+                        "--workspace",
+                        "--message-format=json",
+                        "--",
+                        "-W",
+                        "clippy::pedantic",
+                        "-W",
+                        "clippy::nursery"
+                    ]
+                }
+            }
+        }
+    }
+}

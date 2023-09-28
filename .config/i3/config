@@ -69,9 +69,10 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # LOCKING
 # suspend after 15 minutes
+exec_always --no-startup-id xset s 900
 exec_always --no-startup-id xset dpms 0 900 900
 # lock when suspended
-exec_always --no-startup-id xss-lock -- ~/.dotfiles/lock.sh 
+exec_always --no-startup-id xss-lock -l -n ~/.dotfiles/dim.sh -- ~/.dotfiles/lock.sh 
 
 # don't call the lock screen, turn screen off which triggers the lockscreen (above)
 bindsym $mod+l exec "xset dpms force off"
@@ -170,8 +171,8 @@ set $laptop_display eDP-1
 set $second_display DP-3-2
 
 workspace 1 output $laptop_display
-workspace "2 slack" output $second_display DP-3
-workspace "3 note" output $second_display DP-3
+workspace "2 slack" output $laptop_display
+workspace "3 note" output $laptop_display
 workspace "4 web" output $second_display DP-3
 workspace "5 web" output $second_display DP-3
 workspace "6 web" output $second_display DP-3
@@ -291,4 +292,4 @@ exec --no-startup-id slack
 exec --no-startup-id firefox
 #exec --no-startup-id drawio
 exec_always --no-startup-id nitrogen --restore
-exec_always --no-startup-id compton --config ~/.config/compton.conf
+#exec_always --no-startup-id compton --config ~/.config/compton.conf

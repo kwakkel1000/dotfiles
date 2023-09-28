@@ -107,10 +107,16 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
 alias vim="nvim"
 
 dus() {
     du -hs $1/* | sort -h
 }
-
+gwadd() {
+    git worktree add $1 $2 -b $1
+}
+gupstream() {
+    git push --set-upstream origin $1
+}
 source ~/toolchain/shell/env

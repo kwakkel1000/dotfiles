@@ -3,6 +3,13 @@ local lspconfig = require('lspconfig')
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 local compare = require('cmp.config.compare')
 
+require("neoconf").setup({
+    import = {
+        vscode = false, -- local .vscode/settings.json
+        coc = true,     -- global/local coc-settings.json
+        nlsp = true,    -- global/local nlsp-settings.nvim json settings
+    },                  -- override any of the default settings here
+})
 
 local ensure_installed = {}
 if vim.fn.has('win32') then
@@ -14,60 +21,29 @@ else
     ensure_installed = {
         'awk_ls',
         'bashls',
+        'ltex',
         'cssls',
         'html',
         'jsonls',
         'lua_ls',
         'pylsp',
         'rust_analyzer',
+        'taplo',
         'tsserver',
     }
 end
 
 require('mason').setup()
 require('mason-lspconfig').setup({
-    ensure_installed = ensure_installed
+    ensure_installed = ensure_installed,
+    automatic_installation = true,
 })
 
-require('mason-lspconfig').setup_handlers({
-    function(server_name)
-        if (server_name ~= "rust_analyzer" and server_name ~= "lua_ls") then
-            lspconfig[server_name].setup({
-                capabilities = lsp_capabilities,
-                --                root_dir = vim.lsp.buf.list_workspace_folders,
-            })
-        end
-    end,
-})
 
 local lua_check_third_party = true
 if vim.fn.has('win32') then
     lua_check_third_party = false
 end
----- Fix Undefined global 'vim'
-lspconfig.lua_ls.setup {
-    settings = {
-        Lua = {
-            runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                version = 'LuaJIT',
-            },
-            diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = { 'vim' },
-            },
-            workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
-                checkThirdParty = lua_check_third_party,
-            },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {
-                enable = false,
-            },
-        },
-    },
-}
 
 --vim.lsp.set_log_level 'debug'
 --vim.lsp.start({
@@ -323,21 +299,13 @@ local rust_analyzer =
     cargo = {
         loadOutDirsFromCheck = true,
     },
-    -- enable clippy on save
-    --    checkOnSave = true,
     checkOnSave = {
-        command = "clippy",
-        --        --        overrideCommand = { "cargo", "clippy", "--workspace", "--message-format=json", "--", "-W",
-        --        --            "clippy::pedantic" }
     },
     check = {
         allTargets = false,
-        --    command = "clippy",
         --        extraArgs = { "--locked", "-j2" },
-        -- overrideCommand = "cargo clippy --workspace --message-format=json -- -W clippy::pedantic",
-        --        extraArgs = { "--locked", "-j2", "--", "-W", "clippy::pedantic" },
-        overrideCommand = { "cargo", "clippy", "--workspace", "--message-format=json", "--", "-W",
-            "clippy::pedantic" },
+        --overrideCommand = { "cargo", "clippy", "--workspace", "--message-format=json", "--", "-W",
+        --    "clippy::pedantic" },
     },
     procMacro = {
         enable = true,
@@ -354,40 +322,78 @@ local rust_analyzer =
     }
 }
 --local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-rust_tools.setup({
-    tools = {
-        runnables = {
-            use_telescope = true,
-        },
-        inlay_hints = {
-            auto = true,
-            --            show_parameter_hints = false,
-            --            parameter_hints_prefix = "",
-            --            other_hints_prefix = "blub",
-            --            highlight = "Red",
 
-        },
-        hover_actions = {
-            auto_focus = true
-        },
-    },
-    server = {
-        capabilities = lsp_capabilities,
-        on_attach = function(ev)
-            on_attach(ev, true)
-        end,
-        standalone = false,
-        settings = {
-            -- to enable rust-analyzer settings visit:
-            -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-            ["rust-analyzer"] = rust_analyzer
-        },
-    },
-    dap = {
-        adapter = {
-            type = "executable",
-            command = "lldb-vscode",
-            name = "rt_lldb"
+
+require('mason-lspconfig').setup_handlers({
+    function(server_name)
+        lspconfig[server_name].setup({
+            capabilities = lsp_capabilities,
+            --                root_dir = vim.lsp.buf.list_workspace_folders,
+        })
+    end,
+    ["rust_analyzer"] = function()
+        require("rust-tools").setup {
+            tools = {
+                runnables = {
+                    use_telescope = true,
+                },
+                inlay_hints = {
+                    auto = true,
+                    --            show_parameter_hints = false,
+                    --            parameter_hints_prefix = "",
+                    --            other_hints_prefix = "blub",
+                    --            highlight = "Red",
+
+                },
+                hover_actions = {
+                    auto_focus = true
+                },
+            },
+            server = {
+                capabilities = lsp_capabilities,
+                on_attach = function(ev)
+                    on_attach(ev, true)
+                end,
+                standalone = false,
+                settings = {
+                    -- to enable rust-analyzer settings visit:
+                    -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+                    ["rust-analyzer"] = rust_analyzer
+                },
+            },
+            dap = {
+                adapter = {
+                    type = "executable",
+                    command = "lldb-vscode",
+                    name = "rt_lldb"
+                }
+            }
         }
-    }
+    end,
+    ["lua_ls"] = function()
+        lspconfig.lua_ls.setup {
+            settings = {
+                Lua = {
+                    runtime = {
+                        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                        version = 'LuaJIT',
+                    },
+                    diagnostics = {
+                        -- Get the language server to recognize the `vim` global
+                        globals = { 'vim' },
+                    },
+                    workspace = {
+                        -- Make the server aware of Neovim runtime files
+                        library = vim.api.nvim_get_runtime_file("", true),
+                        checkThirdParty = lua_check_third_party,
+                    },
+                    -- Do not send telemetry data containing a randomized but unique identifier
+                    telemetry = {
+                        enable = false,
+                    },
+                },
+            },
+        }
+    end
+
 })
