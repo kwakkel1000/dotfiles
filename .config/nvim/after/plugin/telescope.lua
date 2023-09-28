@@ -18,5 +18,7 @@ vim.keymap.set('n', '<leader>ps', function()
 end, { desc = 'grep search file' })
 vim.keymap.set('n', '<leader>vh', builtin.help_tags, { desc = 'help telescope' })
 vim.keymap.set('n', '<leader>po', builtin.oldfiles, { desc = 'previously open files' })
+vim.keymap.set('n', '<leader>pc', builtin.commands, { desc = 'available commands' })
+vim.keymap.set('n', '<leader>pd', builtin.diagnostics, { desc = 'search diagnostics' })
 
 vim.keymap.set('n', '<leader>pn', telescope.extensions.notify.notify, { desc = 'previously notifications' })

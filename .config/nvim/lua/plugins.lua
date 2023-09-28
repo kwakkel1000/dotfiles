@@ -241,6 +241,8 @@ return require('packer').startup(function(use)
     -- symbols outline
     use { 'simrat39/symbols-outline.nvim' }
 
+
+    use { 'nvim-treesitter/nvim-treesitter-refactor' }
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if packer_bootstrap then

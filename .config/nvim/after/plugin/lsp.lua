@@ -247,35 +247,28 @@ sign({ name = 'DiagnosticSignInfo', text = '' })
 
 --local on_attach = function(client, bufnr)
 local on_attach = function(ev, rust)
-    local opts = { buffer = ev.buf, remap = false }
-    opts.desc = "hover actions"
-    if rust then
-        vim.keymap.set('n', '<leader>ca', rust_tools.hover_actions.hover_actions, opts)
+    local nmap = function(keys, func, desc)
+        if desc then
+            desc = 'LSP: ' .. desc
+        end
+
+        vim.keymap.set('n', keys, func, { buffer = ev.buf, remap = false, desc = desc })
     end
-    opts.desc = "declaration"
-    vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end, opts)
-    opts.desc = "definition"
-    vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-    opts.desc = "hover"
-    vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-    opts.desc = "mplementation"
-    vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end, opts)
-    opts.desc = "workspace symbol"
-    vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
-    opts.desc = "open float"
-    vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-    opts.desc = "diagnostic next"
-    vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-    opts.desc = "diagnostic prev"
-    vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
-    opts.desc = "code action"
-    vim.keymap.set({ 'n', 'v' }, "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-    opts.desc = "references"
-    vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
-    opts.desc = "rename"
-    vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
-    opts.desc = "signature help"
-    vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+    if rust then
+        nmap('<leader>ca', rust_tools.hover_actions.hover_actions, "hover actions")
+    end
+    nmap("gD", function() vim.lsp.buf.declaration() end, "declaration")
+    nmap("gd", function() vim.lsp.buf.definition() end, "definition")
+    nmap("K", function() vim.lsp.buf.hover() end, "hover")
+    nmap("gi", function() vim.lsp.buf.implementation() end, "implementation")
+    nmap("<leader>vws", function() vim.lsp.buf.workspace_symbol() end, "workspace symbol")
+    nmap("<leader>vd", function() vim.diagnostic.open_float() end, "open float")
+    nmap("[d", function() vim.diagnostic.goto_next() end, "diagnostic next")
+    nmap("]d", function() vim.diagnostic.goto_prev() end, "diagnostic prev")
+    nmap("<leader>vca", function() vim.lsp.buf.code_action() end, "code action")
+    nmap("<leader>vrr", function() vim.lsp.buf.references() end, "references")
+    nmap("<leader>vrn", function() vim.lsp.buf.rename() end, "rename")
+    nmap("<C-k>", function() vim.lsp.buf.signature_help() end, "signature help")
 end
 
 
