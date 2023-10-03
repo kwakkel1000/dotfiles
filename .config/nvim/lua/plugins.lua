@@ -30,6 +30,8 @@ return require('packer').startup(function(use)
             vim.cmd('colorscheme rose-pine')
         end
     })
+    -- colorize in code
+    use("norcalli/nvim-colorizer.lua")
 
     -- Config
     use("folke/neoconf.nvim")
