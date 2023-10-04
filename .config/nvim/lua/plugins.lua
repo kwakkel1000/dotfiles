@@ -39,6 +39,20 @@ return require('packer').startup(function(use)
     -- appearance
     use("folke/zen-mode.nvim")
     use("folke/twilight.nvim")
+    -- file explorere
+    use {
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons', -- optional
+        },
+    }
+    use {
+        'antosha417/nvim-lsp-file-operations',
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-tree.lua",
+        }
+    }
 
     use({
         "folke/trouble.nvim",

@@ -390,3 +390,14 @@ require('mason-lspconfig').setup_handlers({
     end
 
 })
+
+vim.diagnostic.config({
+    severity_sort = true,
+    virtual_text = {
+        severity = {
+            vim.diagnostic.severity.ERROR,
+            vim.diagnostic.severity.WARN,
+            vim.diagnostic.severity.INFO,
+        }
+    }
+})

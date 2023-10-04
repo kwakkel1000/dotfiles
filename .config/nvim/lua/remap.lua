@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = 'Open explorer' })
+--vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = 'Open explorer' })
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = 'move selected down' })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = 'move selected up' })
@@ -41,6 +41,8 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
     { desc = 'replace current word' })
+vim.keymap.set("v", "<leader>s", [[:s/\%V//gI<Left><Left><Left><Left>]],
+    { desc = 'replace all in selection' })
 vim.keymap.set("n", "<leader>X", "<cmd>!chmod +x %<CR>", { desc = 'make file executable', silent = true })
 
 vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.config/nvim/lua/plugins.lua<CR>");
