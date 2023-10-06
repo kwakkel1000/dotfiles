@@ -284,12 +284,15 @@ assign [class="Virt-manager"] $ws16
 
 
 #autostart
-exec --no-startup-id nice -n 19 barrier
-exec --no-startup-id htop
+exec_always --no-startup-id autorander --change
+exec_always --no-startup-id nitrogen --restore
+exec --no-startup-id i3-msg 'workspace $ws1; exec wezterm start htop'
+exec --no-startup-id i3-msg 'workspace $ws19; exec wezterm; workspace $ws1'
+#exec --no-startup-id nice -n 19 barrier
+exec --no-startup-id nice -n 19 input-leap
 exec --no-startup-id arandr
 exec --no-startup-id slack
 #exec --no-startup-id virt-manager
 exec --no-startup-id firefox
 #exec --no-startup-id drawio
-exec_always --no-startup-id nitrogen --restore
 #exec_always --no-startup-id compton --config ~/.config/compton.conf

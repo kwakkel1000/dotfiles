@@ -10,7 +10,7 @@ nvim_tree.setup({
         --relativenumber = true,
     },
     filters = {
-        dotfiles = true,
+        --dotfiles = true,
     },
     renderer = {
         group_empty = true,
