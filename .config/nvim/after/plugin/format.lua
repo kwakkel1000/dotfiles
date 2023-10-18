@@ -87,6 +87,7 @@ local formatterConfig = {
     }
 }
 local commonFT        = {
+    "yaml.ansible",
     "css",
     "scss",
     "html",
@@ -106,6 +107,7 @@ local commonFT        = {
 for _, ft in ipairs(commonFT) do
     formatterConfig[ft] = { prettierConfig }
 end
+
 -- Setup functions
 formatter.setup(
     {

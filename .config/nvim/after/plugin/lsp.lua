@@ -19,6 +19,7 @@ if vim.fn.has('win32') then
     }
 else
     ensure_installed = {
+        'ansiblels',
         'awk_ls',
         'bashls',
         'ltex',
@@ -247,6 +248,7 @@ sign({ name = 'DiagnosticSignInfo', text = '' })
 
 --local on_attach = function(client, bufnr)
 local on_attach = function(ev, rust)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
     local nmap = function(keys, func, desc)
         if desc then
             desc = 'LSP: ' .. desc
@@ -265,7 +267,11 @@ local on_attach = function(ev, rust)
     nmap("<leader>vd", function() vim.diagnostic.open_float() end, "open float")
     nmap("[d", function() vim.diagnostic.goto_next() end, "diagnostic next")
     nmap("]d", function() vim.diagnostic.goto_prev() end, "diagnostic prev")
-    nmap("<leader>vca", function() vim.lsp.buf.code_action() end, "code action")
+    if client ~= nil and client.server_capabilities.codeActionProvider then
+        nmap("<leader>vca", function() vim.lsp.buf.code_action() end, "code action")
+    else
+        nmap("<leader>vca", function() end, "code action not available")
+    end
     nmap("<leader>vrr", function() vim.lsp.buf.references() end, "references")
     nmap("<leader>vrn", function() vim.lsp.buf.rename() end, "rename")
     nmap("<C-k>", function() vim.lsp.buf.signature_help() end, "signature help")

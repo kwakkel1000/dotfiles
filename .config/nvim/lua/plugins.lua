@@ -208,6 +208,8 @@ return require('packer').startup(function(use)
             }
         end,
     }
+    -- ansible detector
+    use { 'mfussenegger/nvim-ansible' }
 
     -- fancy pictograms
     use { 'onsails/lspkind.nvim' }
