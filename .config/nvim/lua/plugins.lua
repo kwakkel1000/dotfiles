@@ -195,6 +195,10 @@ return require('packer').startup(function(use)
     use { 'nvim-lua/lsp-status.nvim' }
     use { 'williamboman/mason.nvim' }
     use { 'williamboman/mason-lspconfig.nvim' }
+    -- nvim lint
+    use { 'mfussenegger/nvim-lint' }
+    -- formatter
+    use { 'mhartington/formatter.nvim' }
     use {
         'j-hui/fidget.nvim',
         tag = 'legacy',
@@ -259,6 +263,16 @@ return require('packer').startup(function(use)
 
 
     use { 'nvim-treesitter/nvim-treesitter-refactor' }
+
+    -- obsidian
+    use({
+        "epwalsh/obsidian.nvim",
+        requires = {
+            -- Required.
+            "nvim-lua/plenary.nvim",
+        },
+    })
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if packer_bootstrap then
