@@ -160,6 +160,7 @@ return require('packer').startup(function(use)
 
     -- LSP
     use { "simrat39/rust-tools.nvim" }
+    use { "folke/neodev.nvim" }
     local tabnine_install = './install.sh'
     if vim.fn.has('win32') then
         tabnine_install = 'powershell ./install.ps1'

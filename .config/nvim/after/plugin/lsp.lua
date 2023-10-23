@@ -2,7 +2,9 @@ local rust_tools = require('rust-tools')
 local lspconfig = require('lspconfig')
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 local compare = require('cmp.config.compare')
-
+require("neodev").setup({
+    -- add any options here, or leave empty to use the default settings
+})
 require("neoconf").setup({
     import = {
         vscode = false, -- local .vscode/settings.json
@@ -248,7 +250,10 @@ sign({ name = 'DiagnosticSignInfo', text = '' })
 
 --local on_attach = function(client, bufnr)
 local on_attach = function(ev, rust)
-    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    local client
+    if ev.data ~= nil then
+        client = vim.lsp.get_client_by_id(ev.data.client_id)
+    end
     local nmap = function(keys, func, desc)
         if desc then
             desc = 'LSP: ' .. desc
