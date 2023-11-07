@@ -170,21 +170,21 @@ return require('packer').startup(function(use)
     --      "jcdickinson/http.nvim",
     --      run = "cargo build --workspace --release"
     --  }
-    if vim.fn.has('win32') == 0 then
-        -- cmp codium
-        use {
-            "jcdickinson/codeium.nvim",
-            requires = {
-                --          "jcdickinson/http.nvim",
-                "nvim-lua/plenary.nvim",
-                "hrsh7th/nvim-cmp",
-            },
-            config = function()
-                require("codeium").setup({
-                })
-            end
-        }
-    end
+    --if vim.fn.has('win32') == 0 then
+    --    -- cmp codium
+    --    use {
+    --        "jcdickinson/codeium.nvim",
+    --        requires = {
+    --            --          "jcdickinson/http.nvim",
+    --            "nvim-lua/plenary.nvim",
+    --            "hrsh7th/nvim-cmp",
+    --        },
+    --        config = function()
+    --            require("codeium").setup({
+    --            })
+    --        end
+    --    }
+    --end
     -- official codium
     -- use { 'Exafunction/codeium.vim' }
 
@@ -224,39 +224,8 @@ return require('packer').startup(function(use)
     use { 'mfussenegger/nvim-dap' }
     use { 'nvim-lua/plenary.nvim' }
 
-    --    use {
-    --        'VonHeikemen/lsp-zero.nvim',
-    --        branch = 'v2.x',
-    --        requires = {
-    --            -- LSP Support
-    --            { 'neovim/nvim-lspconfig' },
-    --            { 'nvim-lua/lsp-status.nvim' },
-    --            { 'williamboman/mason.nvim' },
-    --            { 'williamboman/mason-lspconfig.nvim' },
-    --
-    --            -- Autocompletion
-    --            { 'hrsh7th/nvim-cmp' },
-    --            { 'hrsh7th/cmp-buffer' },
-    --            { 'hrsh7th/cmp-path' },
-    --            { 'saadparwaiz1/cmp_luasnip' },
-    --            { 'hrsh7th/cmp-nvim-lsp' },
-    --            { 'hrsh7th/cmp-nvim-lua' },
-    --            { 'tzachar/cmp-tabnine' },
-    --
-    --            -- Snippets
-    --            { 'L3MON4D3/LuaSnip' },
-    --            { 'rafamadriz/friendly-snippets' },
-    --
-    --            -- Debugging
-    --            { 'mfussenegger/nvim-dap' },
-    --            { 'nvim-lua/plenary.nvim' },
-    --
-    --        }
-    --    }
-
     --  use("github/copilot.vim")
     --    use { 'codota/tabnine-nvim', run = "./dl_binaries.sh" }
-    use("eandrju/cellular-automaton.nvim")
     use("laytan/cloak.nvim")
 
     use('gsuuon/llm.nvim')

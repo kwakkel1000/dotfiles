@@ -1,7 +1,0 @@
-!autorandr/postswitch
-!autorandr/postswitch.d/*
-!compton.conf
-!i3/config
-!i3/i3status.conf
-!nvim/
-!rofi/
