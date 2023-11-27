@@ -58,5 +58,16 @@ wezterm.on('user-var-changed', function(window, pane, name, value)
     window:set_config_overrides(overrides)
 end)
 
+config.keys = {}
+
+for i = 1, 8 do
+    -- CTRL+ALT + number to move to that position
+    table.insert(config.keys, {
+        key = tostring(i),
+        mods = 'CTRL|ALT',
+        action = wezterm.action.MoveTab(i - 1),
+    })
+end
+
 -- and finally, return the configuration to wezterm
 return config

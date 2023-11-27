@@ -109,5 +109,4 @@ end
 
 vim.keymap.set("n", "<leader>co", '<cmd>lua MyColorsMenu()<CR>', { desc = "show colors menu" })
 
-
 require('colorizer').setup()
