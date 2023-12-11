@@ -15,8 +15,8 @@ vim.keymap.set("x", "<leader>p", [["_dP]], { desc = 'paste but keep clipboard' }
 
 -- next greatest remap ever : asbjornHaland
 -- Yank to system/vim clipboard
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = 'yank to ... clipboard' })
-vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = 'yank to ... clipboard' })
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = 'yank to system clipboard' })
+vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = 'yank to system clipboard' })
 
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
@@ -38,6 +38,6 @@ vim.keymap.set("n", "<leader>X", "<cmd>!chmod +x %<CR>", { desc = 'make file exe
 
 vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.config/nvim/lua/plugins.lua<CR>");
 
---vim.keymap.set("n", "<leader><leader>", function()
---    vim.cmd("so")
---end)
+vim.keymap.set("n", "<leader>so", function()
+    vim.cmd("so")
+end)

@@ -109,6 +109,19 @@ return require('packer').startup(function(use)
             require("scrollbar.handlers.gitsigns").setup()
         end
     }
+
+    -- Git
+    use("tpope/vim-fugitive")
+    use({
+        "aaronhallaert/advanced-git-search.nvim",
+        config = function()
+            require("telescope").load_extension("advanced_git_search")
+        end,
+        requires = {
+            -- Insert Dependencies here
+        },
+    })
+
     use {
         "kevinhwang91/nvim-hlslens",
         config = function()
@@ -127,12 +140,15 @@ return require('packer').startup(function(use)
     use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
     use("nvim-treesitter/playground")
     -- Quick file shifter
-    use("theprimeagen/harpoon")
+    use {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        requires = { { "nvim-lua/plenary.nvim" } }
+    }
     -- refactor code
     use("theprimeagen/refactoring.nvim")
     -- undo tree <3
     use("mbbill/undotree")
-    use("tpope/vim-fugitive")
     use("nvim-treesitter/nvim-treesitter-context");
 
     -- Autocompletion
