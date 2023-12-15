@@ -156,7 +156,7 @@ set $ws3 "3 note"
 set $ws4 "4 web"
 set $ws5 "5 web"
 set $ws6 "6 web"
-set $ws7 "7"
+set $ws7 "7 web"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
@@ -164,10 +164,10 @@ set $ws11 "11"
 set $ws12 "12"
 set $ws13 "13"
 set $ws14 "14"
-set $ws15 "15"
+set $ws15 "15 ansible"
 set $ws16 "16 kvm"
-set $ws17 "17 ansible"
-set $ws18 "18"
+set $ws17 "17"
+set $ws18 "18 code"
 set $ws19 "19 code"
 set $ws20 "20 postman"
 
@@ -177,10 +177,10 @@ set $second_display DP-3-2
 workspace 1 output $laptop_display
 workspace "2 slack" output $laptop_display
 workspace "3 note" output $laptop_display
-workspace "4 web" output $laptop_display
-workspace "5 web" output $second_display DP-3
+workspace "4 web" output $second_display DP-3
+workspace "5 web" output $laptop_display
 workspace "6 web" output $second_display DP-3
-workspace 7 output $second_display DP-3
+workspace "7 web" output $second_display DP-3
 workspace 8 output $second_display DP-3
 workspace 9 output $second_display DP-3
 workspace 10 output $second_display DP-3
@@ -188,10 +188,10 @@ workspace 11 output primary
 workspace 12 output primary
 workspace 13 output primary
 workspace 14 output primary
-workspace 15 output primary
-workspace 16 output primary
-workspace 17 output primary
-workspace 18 output primary
+workspace "15 ansible" output primary
+workspace "16 kvm" output primary
+workspace "17" output $second_display DP-3
+workspace "18 code" output $second_display DP-3
 workspace "19 code" output $second_display DP-3
 workspace "20 postman" output $second_display DP-3
 
