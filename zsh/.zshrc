@@ -109,6 +109,7 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias vim="nvim"
+alias ls="lsd"
 
 dus() {
     du -hs $1/* | sort -h

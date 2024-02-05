@@ -1,4 +1,4 @@
 lockbg
 !*/.gitignore
 !*/*/.gitignore
-
+.config/Slack/
