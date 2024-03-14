@@ -6,3 +6,5 @@ declare -a ConfigItems=("autorandr" "compton.conf" "i3" "nvim" "polybar" "rofi")
 for config_item in "${ConfigItems[@]}"; do
     ln -s ".config/$config_item" "$HOME/.config/$config_item"
 done
+
+echo "https://github.com/lsd-rs/lsd/releases"

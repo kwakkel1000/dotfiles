@@ -1,4 +1,4 @@
-local rust_tools = require('rust-tools')
+--local rust_tools = require('rust-tools')
 local lspconfig = require('lspconfig')
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 local compare = require('cmp.config.compare')
@@ -96,7 +96,6 @@ local cmp_mappings = cmp.mapping.preset.insert({
         cmp.mapping.complete({
             config = {
                 sources = cmp.config.sources({
-                    { name = 'codeium',     priority = 10 },
                     { name = 'cmp_tabnine', priority = 9 },
                 })
             }
@@ -152,7 +151,6 @@ cmp.setup({
         { name = "nvim_lsp_signature_help" },
         { name = "crates" },
         { name = "luasnip" },
-        --{ name = "codeium",                priority = 10 },
     },
     mapping = cmp_mappings,
     formatting = {
@@ -168,7 +166,6 @@ cmp.setup({
                     nvim_lua = "[Lua]",
                     latex_symbols = "[Latex]",
                     cmp_tabnine = "T9",
-                    codeium = "",
                 })
             })(entry, vim_item)
             --vim.print(vim_item)
@@ -190,7 +187,6 @@ cmp.setup({
         --                nvim_lua = "[Lua]",
         --                latex_symbols = "[Latex]",
         --                cmp_tabnine = "[T9]",
-        --                codeium = "[]",
         --            })
         --        }),
     },
@@ -248,21 +244,24 @@ sign({ name = 'DiagnosticSignInfo', text = '' })
 
 
 
---local on_attach = function(client, bufnr)
-local on_attach = function(ev, rust)
-    local client
-    if ev.data ~= nil then
-        client = vim.lsp.get_client_by_id(ev.data.client_id)
-    end
+local on_attach = function(client, buffer, rust)
     local nmap = function(keys, func, desc)
         if desc then
             desc = 'LSP: ' .. desc
         end
 
-        vim.keymap.set('n', keys, func, { buffer = ev.buf, remap = false, desc = desc })
+        vim.keymap.set('n', keys, func, { buffer = buffer, remap = false, desc = desc })
     end
     if rust then
-        nmap('<leader>ca', rust_tools.hover_actions.hover_actions, "hover actions")
+        nmap("<leader>vem", function() vim.cmd.RustLsp('expandMacro') end, "expand macro")
+        --nmap('<leader>ca', rust_tools.hover_actions.hover_actions, "hover actions")
+        nmap("<leader>vrd", function() vim.cmd.RustLsp('renderDiagnostic') end, "render diagnostic")
+        nmap("<leader>ca", function() vim.cmd.RustLsp { 'hover', 'actions' } end, "hover actions")
+        nmap("<leader>vca", function() vim.cmd.RustLsp('codeAction') end, "code action")
+    elseif client ~= nil and client.server_capabilities ~= nil and client.server_capabilities.codeActionProvider then
+        nmap("<leader>vca", function() vim.lsp.buf.code_action() end, "code action")
+    else
+        nmap("<leader>vca", function() end, "code action not available")
     end
     nmap("gD", function() vim.lsp.buf.declaration() end, "declaration")
     nmap("gd", function() vim.lsp.buf.definition() end, "definition")
@@ -272,14 +271,18 @@ local on_attach = function(ev, rust)
     nmap("<leader>vd", function() vim.diagnostic.open_float() end, "open float")
     nmap("[d", function() vim.diagnostic.goto_next() end, "diagnostic next")
     nmap("]d", function() vim.diagnostic.goto_prev() end, "diagnostic prev")
-    if client ~= nil and client.server_capabilities.codeActionProvider then
-        nmap("<leader>vca", function() vim.lsp.buf.code_action() end, "code action")
-    else
-        nmap("<leader>vca", function() end, "code action not available")
-    end
     nmap("<leader>vrr", function() vim.lsp.buf.references() end, "references")
     nmap("<leader>vrn", function() vim.lsp.buf.rename() end, "rename")
     nmap("<C-k>", function() vim.lsp.buf.signature_help() end, "signature help")
+end
+
+local on_attach_mason = function(ev, rust)
+    local client
+    if ev.data ~= nil then
+        client = vim.lsp.get_client_by_id(ev.data.client_id)
+    end
+    local buffer = ev.buf
+    on_attach(client, buffer, rust)
 end
 
 
@@ -336,43 +339,6 @@ require('mason-lspconfig').setup_handlers({
         })
     end,
     ["rust_analyzer"] = function()
-        require("rust-tools").setup {
-            tools = {
-                runnables = {
-                    use_telescope = true,
-                },
-                inlay_hints = {
-                    auto = true,
-                    --            show_parameter_hints = false,
-                    --            parameter_hints_prefix = "",
-                    --            other_hints_prefix = "blub",
-                    --            highlight = "Red",
-
-                },
-                hover_actions = {
-                    auto_focus = true
-                },
-            },
-            server = {
-                capabilities = lsp_capabilities,
-                on_attach = function(ev)
-                    on_attach(ev, true)
-                end,
-                standalone = false,
-                settings = {
-                    -- to enable rust-analyzer settings visit:
-                    -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-                    ["rust-analyzer"] = rust_analyzer
-                },
-            },
-            dap = {
-                adapter = {
-                    type = "executable",
-                    command = "lldb-vscode",
-                    name = "rt_lldb"
-                }
-            }
-        }
     end,
     ["lua_ls"] = function()
         lspconfig.lua_ls.setup {
@@ -412,3 +378,29 @@ vim.diagnostic.config({
         }
     }
 })
+
+vim.g.rustaceanvim = {
+    -- Plugin configuration
+    tools = {
+        hover_actions = {
+            auto_focus = true
+        },
+        test_executor = 'background',
+    },
+    -- LSP configuration
+    server = {
+        on_attach = function(client, bufnr)
+            on_attach(client, bufnr, true)
+        end,
+        --on_attach = function(client, bufnr)
+        -- you can also put keymaps in here
+        --end,
+        default_settings = {
+            -- rust-analyzer language server configuration
+            ['rust-analyzer'] = rust_analyzer,
+        },
+    },
+    -- DAP configuration
+    --dap = {
+    --},
+}

@@ -154,7 +154,8 @@ require("lazy").setup({
     "nvim-treesitter/nvim-treesitter-context",
 
     -- Autocompletion
-    { "hrsh7th/nvim-cmp", commit = "c4e491a87eeacf0408902c32f031d802c7eafce8" },
+    { "hrsh7th/nvim-cmp" },
+    --, commit = "c4e491a87eeacf0408902c32f031d802c7eafce8" },
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
@@ -177,9 +178,14 @@ require("lazy").setup({
     },
 
     -- LSP
-    "simrat39/rust-tools.nvim",
+    --"simrat39/rust-tools.nvim",
+    {
+        'mrcjkb/rustaceanvim',
+        version = '^4', -- Recommended
+        ft = { 'rust' },
+    },
     "folke/neodev.nvim",
-    --{ 'codota/tabnine-nvim', build = "./dl_binaries.sh" },
+    { 'codota/tabnine-nvim', build = "./dl_binaries.sh" },
     {
         'tzachar/cmp-tabnine',
         build = './install.sh',
@@ -207,6 +213,17 @@ require("lazy").setup({
             }
         end,
     },
+
+    -- testing
+    {
+        "nvim-neotest/neotest",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "antoinemadec/FixCursorHold.nvim",
+            "nvim-treesitter/nvim-treesitter"
+        }
+    },
+
     -- ansible detector
     'mfussenegger/nvim-ansible',
 
