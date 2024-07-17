@@ -74,11 +74,12 @@ exec_always --no-startup-id xset dpms 0 900 900
 # lock when suspended
 exec_always --no-startup-id xss-lock -l -n ~/.dotfiles/dim.sh -- ~/.dotfiles/lock.sh 
 
-# don't call the lock screen, turn screen off which triggers the lockscreen (above)
-bindsym $mod+l exec "xset dpms force off"
+## don't call the lock screen, turn screen off which triggers the lockscreen (above)
+#bindsym $mod+l exec "xset dpms force off"
 
 #bindsym $mod+l exec ~/.dotfiles/lock.sh
-#$bindsym $mod+l lock_then_off()
+bindsym $mod+l exec "i3lock --color=232323"
+#bindsym $mod+l exec "i3lock --color=232323 & sleep 5 && systemctl suspend"
 #bindsym $mod+l exec "i3lock --color=232323 & sleep 5 && xset dpms force off"
 #exec --no-startup-id xautolock -time 15 -locker "i3lock --color=232323 & sleep 5 && xset dpms force off"
 #exec_always --no-startup-id xautolock -time 15 -locker "i3lock --color=232323 & sleep 5 && xset dpms force off"
@@ -292,11 +293,11 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id exec autorandr --change
 exec --no-startup-id i3-msg 'workspace 1; exec wezterm start htop; workspace 1'
 #exec --no-startup-id nice -n 19 barrier
-exec --no-startup-id nice -n 19 input-leap
+#exec --no-startup-id nice -n 19 input-leap
 exec --no-startup-id arandr
 exec --no-startup-id slack
-exec --no-startup-id i3-msg 'workspace 3; exec wezterm start nvim ~/obsidian/fortanix; workspace 3'
-exec --no-startup-id obsidian
+#exec --no-startup-id i3-msg 'workspace 3; exec wezterm start nvim ~/obsidian/fortanix; workspace 3'
+#exec --no-startup-id obsidian
 exec --no-startup-id i3-msg 'workspace 4; exec firefox; workspace 4;'
 #exec --no-startup-id drawio
 #exec --no-startup-id virt-manager

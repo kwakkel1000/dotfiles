@@ -2,8 +2,9 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/gijsk/.oh-my-zsh"
+export ZSH="/home/gijskwakkel/.oh-my-zsh"
 
+export PATH="$PATH:/opt/nvim-linux64/bin"
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -109,7 +110,7 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias vim="nvim"
-alias ls="lsd"
+#alias ls="lsd"
 
 dus() {
     du -hs $1/* | sort -h

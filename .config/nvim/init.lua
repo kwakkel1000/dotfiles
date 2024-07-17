@@ -1,3 +1,5 @@
-require("set")
-require("remap")
-require("plugins")
+require("config.set")
+require("config.remap")
+require("config.lazy")
+
+ColorMyPencils()

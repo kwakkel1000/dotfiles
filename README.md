@@ -13,3 +13,8 @@
     neovim (nightly)
     
     obsidian
+
+### install symbol only font
+    https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/NerdFontsSymbolsOnly
+    copy to ~/.local/share/fonts/TTF/
+    fc-cache -fv
