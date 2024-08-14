@@ -1,0 +1,20 @@
+{
+    "rust-analyzer.check.overrideCommand": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--message-format=json",
+        "--no-deps",
+        "--",
+        "-W",
+        "clippy::pedantic",
+        "-W",
+        "clippy::nursery",
+        "-W",
+        "clippy::todo",
+        "-W",
+        "clippy::unwrap_used",
+        "-W",
+        "clippy::panic"
+    ]
+}

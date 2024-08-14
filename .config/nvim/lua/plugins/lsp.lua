@@ -1,18 +1,45 @@
-local on_attach = function(client, buffer, rust)
-    local nmap = function(keys, func, desc)
-        if desc then
-            desc = 'LSP: ' .. desc
-        end
+vim.keymap.set('n', '<leader>Hg',
+    function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
+    end, { desc = "Hints Inlay global" }
+)
+vim.keymap.set('n', '<leader>Hb',
+    function()
+        local buffer = { bufnr = vim.api.nvim_get_current_buf() }
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(buffer), buffer)
+    end, { desc = "Hints Inlay buffer" }
+)
 
-        vim.keymap.set('n', keys, func, { buffer = buffer, remap = false, desc = desc })
+local lsp_nmap = function(buffer, keys, func, desc)
+    if desc then
+        desc = 'LSP: ' .. desc
     end
-    if rust then
-    elseif client ~= nil and client.server_capabilities ~= nil and client.server_capabilities.codeActionProvider then
-        nmap("<leader>vca", function() vim.lsp.buf.code_action() end, "code action")
-    else
-        nmap("<leader>vca", function() end, "code action not available")
+
+    vim.keymap.set('n', keys, func, { buffer = buffer, remap = false, desc = desc })
+end
+
+local on_attach = function(client, buffer)
+    local nmap = function(keys, func, desc)
+        lsp_nmap(buffer, keys, func, desc)
     end
-    nmap("gD", function() vim.lsp.buf.declaration() end, "declaration")
+
+    -- if client.supports_method("textDocument/completion") then
+    --     vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+    -- end
+
+    if client ~= nil then
+        if client.supports_method("textDocument/inlayHint") then
+            vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
+        end
+        if client.supports_method("textDocument/declaration") then
+            nmap("gD", function() vim.lsp.buf.declaration() end, "declaration")
+        end
+        if client.server_capabilities ~= nil and client.server_capabilities.codeActionProvider then
+            nmap("<leader>vca", function() vim.lsp.buf.code_action() end, "code action")
+        else
+            nmap("<leader>vca", function() end, "code action not available")
+        end
+    end
     nmap("gd", function() vim.lsp.buf.definition() end, "definition")
     nmap("K", function() vim.lsp.buf.hover() end, "hover")
     nmap("gi", function() vim.lsp.buf.implementation() end, "implementation")
@@ -25,24 +52,26 @@ local on_attach = function(client, buffer, rust)
     nmap("<C-k>", function() vim.lsp.buf.signature_help() end, "signature help")
 end
 
-local on_attach_rust = function(client, buffer)
-    on_attach(client, buffer, true)
+local on_attach_rust = function(buffer)
     local nmap = function(keys, func, desc)
-        if desc then
-            desc = 'LSP: ' .. desc
-        end
-
-        vim.keymap.set('n', keys, func, { buffer = buffer, remap = false, desc = desc })
+        lsp_nmap(buffer, keys, func, desc)
     end
 
     nmap("<leader>vem", function() vim.cmd.RustLsp('expandMacro') end, "expand macro")
     nmap("<leader>vrpm", function() vim.cmd.RustLsp('rebuildProcMacros') end, "rebuild proc macros")
-    --nmap('<leader>ca', rust_tools.hover_actions.hover_actions, "hover actions")
     nmap("<leader>vrd", function() vim.cmd.RustLsp('renderDiagnostic') end, "render diagnostic")
     nmap("<leader>ca", function() vim.cmd.RustLsp { 'hover', 'actions' } end, "hover actions")
     nmap("<leader>vca", function() vim.cmd.RustLsp('codeAction') end, "code action")
 end
 
+vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+    callback = function(args)
+        local bufnr = args.buf
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        on_attach(client, bufnr)
+    end,
+})
 
 vim.diagnostic.config({
     severity_sort = true,
@@ -79,20 +108,6 @@ sign({ name = 'DiagnosticSignWarn', text = '' })
 sign({ name = 'DiagnosticSignHint', text = '' })
 sign({ name = 'DiagnosticSignInfo', text = '' })
 
-
-
-vim.api.nvim_create_autocmd('LspAttach', {
-    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-    callback = function(ev)
-        on_attach(ev, false)
-        --    -- Enable completion triggered by <c-x><c-o>
-        --    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-        --
-    end,
-})
-
-
-
 return {
     {
         "neovim/nvim-lspconfig",
@@ -126,15 +141,14 @@ return {
                 vim.lsp.protocol.make_client_capabilities(),
                 cmp_lsp.default_capabilities())
 
-
-
-            local ensure_installed = {}
+            local lua_check_third_party = true
             if vim.fn.has('win32') then
-                ensure_installed = {
-                    'lua_ls',
-                    -- 'rust_analyzer',
-                }
-            else
+                lua_check_third_party = false
+            end
+
+            require("fidget").setup({})
+            require("mason").setup()
+            require("mason-lspconfig").setup({
                 ensure_installed = {
                     'ansiblels',
                     'awk_ls',
@@ -148,18 +162,7 @@ return {
                     -- 'rust_analyzer',
                     'taplo',
                     'tsserver',
-                }
-            end
-
-            local lua_check_third_party = true
-            if vim.fn.has('win32') then
-                lua_check_third_party = false
-            end
-
-            require("fidget").setup({})
-            require("mason").setup()
-            require("mason-lspconfig").setup({
-                ensure_installed = ensure_installed,
+                },
                 handlers = {
                     function(server_name) -- default handler (optional)
                         require("lspconfig")[server_name].setup {
@@ -214,36 +217,65 @@ return {
     },
     {
         "mrcjkb/rustaceanvim",
-        version = '^4', -- Recommended
+        version = '^5', -- Recommended
         -- ft = { 'rust' },
-        -- lazy = false,
+        lazy = false,
         config = function()
             local rust_analyzer = {
                 restartServerOnConfigChange = true,
                 cargo = {
                     loadOutDirsFromCheck = true,
                 },
-                checkOnSave = {
-                },
                 check = {
-                    allTargets = false,
-                    --        extraArgs = { "--locked", "-j2" },
-                    --overrideCommand = { "cargo", "clippy", "--workspace", "--message-format=json", "--", "-W",
-                    --    "clippy::pedantic" },
+                    -- default to true
+                    -- allTargets = false,
+                    -- we don't need this
+                    -- extraArgs = { "--locked", "-j2" },
+                    -- rustaceanvim defaults to clippy
+                    -- overrideCommand = { "cargo", "clippy", "--workspace", "--message-format=json", "--", "-W", "clippy::pedantic", "-W", "clippy::nursery", },
                 },
                 procMacro = {
                     enable = true,
                 },
                 diagnostics = {
                     enable = true,
-                    --disabled = { "unresolved-proc-macro" },
-                    --        experimental = {
-                    --            enable = true
-                    --        },
+                    disabled = { "unresolved-proc-macro" },
                 },
-                lru = {
-                    capacity = 512,
-                }
+                -- lru = {
+                --     capacity = 512,
+                -- }
+                inlayHints = {
+                    -- bindingModeHints = {
+                    --     enable = true,
+                    -- },
+                    chainingHints = {
+                        enable = true,
+                    },
+                    closingBraceHints = {
+                        enable = true,
+                        minLines = 25,
+                    },
+                    -- closureReturnTypeHints = {
+                    --     enable = "never",
+                    -- },
+                    -- lifetimeElisionHints = {
+                    --     enable = "always",
+                    --     useParameterNames = false,
+                    -- },
+                    maxLength = 25,
+                    parameterHints = {
+                        enable = true,
+                    },
+                    -- reborrowHints = {
+                    --     enable = "always",
+                    -- },
+                    renderColons = true,
+                    typeHints = {
+                        enable = true,
+                        hideClosureInitialization = false,
+                        hideNamedConstructor = false,
+                    },
+                },
             }
 
             vim.g.rustaceanvim = {
@@ -256,9 +288,9 @@ return {
                 },
                 -- LSP configuration
                 server = {
-                    on_attach = function(client, bufnr)
-                        on_attach(client, bufnr, true)
-                        on_attach_rust(client, bufnr)
+                    on_attach = function(_client, bufnr)
+                        -- on_attach(client, bufnr, true)
+                        on_attach_rust(bufnr)
                     end,
                     default_settings = {
                         -- rust-analyzer language server configuration

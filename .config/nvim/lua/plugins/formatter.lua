@@ -67,7 +67,8 @@ return {
             sh = {
                 function()
                     return {
-                        exe = "beautysh",
+                        -- exe = "beautysh",
+                        exe = "shfmt",
                         args = { vim.api.nvim_buf_get_name(0) },
                         stdin = false
                     }
@@ -124,7 +125,7 @@ return {
             for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
                 if client and client.supports_method("textDocument/formatting") then
                     vim.lsp.buf.format()
-                    -- require("notify").notify("Finished running " .. client.name, "debug", { title = "LSP Format" })
+                    require("notify").notify("Finished running " .. client.name, "debug", { title = "LSP Format" })
                     do return end
                 end
             end

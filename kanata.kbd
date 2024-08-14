@@ -1,0 +1,60 @@
+#|
+Since it may be important for you to know, pressing and holding all of the
+three following keys together at the same time will cause kanata to exit:
+
+  Left Control, Space, Escape
+
+;; default
+(defsrc
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
+)
+
+
+;; or:
+(defsrc)
+(deflayermap (base-layer)
+  caps @cap
+  
+)
+(defalias
+  ;; tap for esc, hold for left control
+  cap (tap-hold 200 200 esc lctl)
+)
+
+|#
+;; config from https://github.com/jtroo/kanata/blob/main/cfg_samples/kanata.kbd
+
+;; Only one defsrc is allowed.
+;;
+;; defsrc defines the keys that will be intercepted by kanata. The order of the
+;; keys matches the deflayer declarations and all deflayer declarations must
+;; have the same number of keys as defsrc.
+;;
+;; The visual/spatial positioning is *not* mandatory; it is done by convention
+;; for visual ease. These items are parsed as a long list with newlines being
+;; ignored.
+;;
+;; If you are looking for other keys, the file src/keys/mod.rs should hopefully
+;; provide some insight.
+(defsrc
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
+)
+
+;; The first layer defined is the layer that will be active by default when
+;; kanata starts up. This layer is the standard QWERTY layout except for the
+;; backtick/grave key (@grl) which is an alias for a tap-hold key.
+(deflayer qwerty
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  esc  a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lctl           spc            ralt rmet rctl
+)

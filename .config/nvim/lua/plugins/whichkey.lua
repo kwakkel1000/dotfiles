@@ -15,6 +15,7 @@ return {
             { "<leader>t",  group = "terminal" },
             { "<leader>x",  group = "trouble" },
             { "<leader>z",  group = "zen mode" },
+            { "<leader>H", group = "Hints Inlay" },
             { "<leader>S",  group = "Source Open file" },
             { "<leader>SO", group = "Source Open file" },
         })
