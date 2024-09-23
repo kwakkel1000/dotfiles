@@ -101,7 +101,7 @@ return {
             },
         })
         ai_whichkey({})
-        require("mini.pairs").setup()
+        -- require("mini.pairs").setup()
         --  NOTE: using `nvim-surround` rather than `mini.surround`, because the keybinds can differ between visual and normal mode
     end,
 }

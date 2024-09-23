@@ -4,7 +4,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH="/home/gijskwakkel/.oh-my-zsh"
 
-export PATH="$PATH:/opt/nvim-linux64/bin"
+export PATH="$PATH:/opt/nvim-linux64/bin:/home/gijskwakkel/.cargo/bin"
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -62,7 +62,10 @@ ZSH_THEME="agnoster"
 # "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="yyyy-mm-dd"
+
+HISTSIZE=500000
+SAVEHIST=500000
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -72,7 +75,12 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git sudo screen per-directory-history)
+plugins=(git
+    sudo
+    screen
+    vi-mode
+    # rust
+    per-directory-history)
 #plugins=(git sudo screen per-directory-history ripgrep ssh-agent)
 
 source $ZSH/oh-my-zsh.sh
@@ -111,6 +119,10 @@ fi
 
 alias vim="nvim"
 #alias ls="lsd"
+
+clippypn() {
+    cargo clippy --workspace --no-deps -- -W clippy::pedantic -W clippy::nursery
+}
 
 dus() {
     du -hs $1/* | sort -h

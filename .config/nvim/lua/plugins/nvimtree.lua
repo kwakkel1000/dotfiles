@@ -23,6 +23,7 @@ return {
                     --relativenumber = true,
                 },
                 filters = {
+                    git_ignored = false,
                     --dotfiles = true,
                 },
                 renderer = {

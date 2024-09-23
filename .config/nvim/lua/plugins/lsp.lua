@@ -161,7 +161,7 @@ return {
                     'pylsp',
                     -- 'rust_analyzer',
                     'taplo',
-                    'tsserver',
+                    -- 'tsserver',
                 },
                 handlers = {
                     function(server_name) -- default handler (optional)
