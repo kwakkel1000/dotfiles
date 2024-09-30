@@ -45,8 +45,30 @@ local on_attach = function(client, buffer)
     nmap("gi", function() vim.lsp.buf.implementation() end, "implementation")
     nmap("<leader>vws", function() vim.lsp.buf.workspace_symbol() end, "workspace symbol")
     nmap("<leader>vd", function() vim.diagnostic.open_float() end, "open float")
-    nmap("[d", function() vim.diagnostic.goto_next() end, "diagnostic next")
-    nmap("]d", function() vim.diagnostic.goto_prev() end, "diagnostic prev")
+    nmap("[D", function() vim.diagnostic.goto_next() end, "diagnostic next ALL")
+    nmap("]D", function() vim.diagnostic.goto_prev() end, "diagnostic prev ALL")
+    nmap("[d", function()
+        vim.diagnostic.goto_next(
+            {
+                severity = {
+                    vim.diagnostic.severity.ERROR,
+                    vim.diagnostic.severity.WARN,
+                    vim.diagnostic.severity.INFO,
+                }
+            }
+        )
+    end, "diagnostic next important")
+    nmap("]d", function()
+        vim.diagnostic.goto_prev(
+            {
+                severity = {
+                    vim.diagnostic.severity.ERROR,
+                    vim.diagnostic.severity.WARN,
+                    vim.diagnostic.severity.INFO,
+                }
+            }
+        )
+    end, "diagnostic prev important")
     nmap("<leader>vrr", function() vim.lsp.buf.references() end, "references")
     nmap("<leader>vrn", function() vim.lsp.buf.rename() end, "rename")
     nmap("<C-k>", function() vim.lsp.buf.signature_help() end, "signature help")
@@ -105,8 +127,8 @@ end
 
 sign({ name = 'DiagnosticSignError', text = '"' })
 sign({ name = 'DiagnosticSignWarn', text = '' })
-sign({ name = 'DiagnosticSignHint', text = '' })
 sign({ name = 'DiagnosticSignInfo', text = '' })
+sign({ name = 'DiagnosticSignHint', text = '' })
 
 return {
     {
