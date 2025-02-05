@@ -15,6 +15,7 @@ end
 config.hide_tab_bar_if_only_one_tab = true
 config.line_height = 0.95
 config.window_decorations = "RESIZE"
+config.scrollback_lines = 100000
 -- For example, changing the color scheme:
 --config.color_scheme = 'AdventureTime'
 
