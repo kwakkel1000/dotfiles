@@ -4,23 +4,20 @@ output DP-1
 off
 output DP-2
 off
-output DP-3
-off
 output DP-4
 off
+output DP-3-5
+off
 output DP-3-6
-crtc 2
+off
+output DP-3
+crtc 1
 mode 3840x2160
 pos 1920x0
-rate 60.00
-output DP-3-5
-crtc 1
-mode 2560x1440
-pos 5760x309
-rate 74.97
+rate 24.00
 output eDP-1
 crtc 0
 mode 1920x1080
-pos 0x540
+pos 0x600
 primary
 rate 60.00

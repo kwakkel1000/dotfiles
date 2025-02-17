@@ -161,12 +161,12 @@ set $ws4 "4 web"
 set $ws5 "5 web"
 set $ws6 "6 web"
 set $ws7 "7 web"
-set $ws8 "8"
+set $ws8 "8 web"
 set $ws9 "9"
 set $ws10 "10"
 set $ws11 "11"
 set $ws12 "12"
-set $ws13 "13"
+set $ws13 "13 plex"
 set $ws14 "14 kvm"
 set $ws15 "15 ansible"
 set $ws16 "16 term"
@@ -191,7 +191,7 @@ workspace 9 output $second_display
 workspace 10 output $third_display
 workspace 11 output primary
 workspace 12 output primary
-workspace 13 output primary
+workspace "13 plex" output $third_display
 workspace "14 kvm" output primary
 workspace "15 ansible" output primary
 workspace "16 term" output primary
@@ -284,12 +284,12 @@ bindsym $mod+r mode "resize"
 ##=================================================##
 #assign [class="barrier"] $ws1
 assign [class="Arandr"] $ws1
-assign [class="htop"] $ws1
 assign [class="Slack"] $ws2
 assign [class="obsidian"] $ws3
 assign [class="firefox"] $ws4
 assign [class="draw.io"] $ws6
 assign [class="Virt-manager"] $ws16
+assign [class="Plex"] $ws13
 
 
 #autostart
@@ -307,5 +307,5 @@ exec firefox;
 #exec --no-startup-id drawio
 #exec --no-startup-id virt-manager
 #exec_always --no-startup-id compton --config ~/.config/compton.conf
-exec_always --no-startup-id exec nitrogen --restore
+exec_always --no-startup-id exec "sleep 5; nitrogen --restore"
 
