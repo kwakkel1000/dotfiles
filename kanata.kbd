@@ -56,5 +56,5 @@ three following keys together at the same time will cause kanata to exit:
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   esc  a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lctl           spc            ralt rmet rctl
+  lctl lmet lalt           spc            ralt rmet rctl
 )
