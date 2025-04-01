@@ -19,6 +19,10 @@
     copy to ~/.local/share/fonts/TTF/
     fc-cache -fv
 
+### neovim
+
+https://github.com/neovim/neovim/blob/master/INSTALL.md#pre-built-archives-2
+
 ### kanata
 
 download kanata
