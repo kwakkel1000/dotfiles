@@ -8,11 +8,11 @@
     apt install htop screen sudo git git-lfs ripgrep zsh pavucontrol
     apt install arandr autorandr xss-lock scrot nitrogen compton brightnessctl rofi
     
-    barrier
+    <!-- barrier -->
     
-    neovim (nightly)
+    <!-- neovim (nightly) -->
     
-    obsidian
+    <!-- obsidian -->
 
 ### install symbol only font
     https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/NerdFontsSymbolsOnly

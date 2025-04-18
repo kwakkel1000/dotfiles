@@ -1,9 +1,8 @@
 {
-    "rust-analyzer.cachePriming.enable": false,
-    "rust-analyzer.check.workspace": false,
     "rust-analyzer.check.overrideCommand": [
         "cargo",
         "clippy",
+        "--workspace",
         "--message-format=json",
         "--no-deps",
         "--",
