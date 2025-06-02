@@ -41,3 +41,7 @@ vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.config/nvim/lua/plugins.lua<CR>");
 vim.keymap.set("n", "<leader>SO", function()
     vim.cmd("so")
 end)
+
+
+vim.keymap.set("x", "<leader>rn", [[:silent '<,'>s/\\[rn]/\r/g<CR>]],
+    { desc = 'replace \\r\\n to new line ⏎', noremap = true, silent = true })

@@ -45,11 +45,13 @@ local on_attach = function(client, buffer)
     nmap("gi", function() vim.lsp.buf.implementation() end, "implementation")
     nmap("<leader>vws", function() vim.lsp.buf.workspace_symbol() end, "workspace symbol")
     nmap("<leader>vd", function() vim.diagnostic.open_float() end, "open float")
-    nmap("[D", function() vim.diagnostic.goto_next() end, "diagnostic next ALL")
-    nmap("]D", function() vim.diagnostic.goto_prev() end, "diagnostic prev ALL")
+    nmap("[D", function() vim.diagnostic.jump({ count = 1, float = true }) end, "diagnostic next ALL")
+    nmap("]D", function() vim.diagnostic.jump({ count = -1, float = true }) end, "diagnostic prev ALL")
     nmap("[d", function()
-        vim.diagnostic.goto_next(
+        vim.diagnostic.jump(
             {
+                count = 1,
+                float = true,
                 severity = {
                     vim.diagnostic.severity.ERROR,
                     vim.diagnostic.severity.WARN,
@@ -59,8 +61,10 @@ local on_attach = function(client, buffer)
         )
     end, "diagnostic next important")
     nmap("]d", function()
-        vim.diagnostic.goto_prev(
+        vim.diagnostic.jump(
             {
+                count = -1,
+                float = true,
                 severity = {
                     vim.diagnostic.severity.ERROR,
                     vim.diagnostic.severity.WARN,
@@ -239,7 +243,7 @@ return {
     },
     {
         "mrcjkb/rustaceanvim",
-        version = '^5', -- Recommended
+        version = '*', -- Recommended
         -- ft = { 'rust' },
         lazy = false,
         config = function()
