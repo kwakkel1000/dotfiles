@@ -13,6 +13,8 @@ return {
 
             local cmp = require('cmp')
             local compare = cmp.config.compare
+            -- local cmp = require('blink.cmp')
+            -- -- local compare = cmp.config.compare
 
             local cmp_select = { behavior = cmp.SelectBehavior.Select }
             local cmp_mappings = cmp.mapping.preset.insert({

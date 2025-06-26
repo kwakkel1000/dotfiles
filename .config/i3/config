@@ -176,29 +176,29 @@ set $ws19 "19 code"
 set $ws20 "20 postman"
 
 set $laptop_display eDP-1
-set $second_display DP-3-2 DP-3-6
-set $third_display DP-3-3 DP-3-5
+set $second_display DP-3-3 DP-3-6
+set $third_display DP-3-2 DP-3-5
 
-workspace 1 output $laptop_display
-workspace "2 slack" output $laptop_display
-workspace "3 note" output $laptop_display
-workspace "4 web" output $second_display
-workspace "5 web" output $laptop_display
-workspace "6 web" output $second_display
-workspace "7 web" output $second_display
-workspace "8 web" output $third_display
-workspace 9 output $second_display
-workspace 10 output $third_display
-workspace 11 output primary
-workspace 12 output primary
-workspace "13 plex" output $third_display
-workspace "14 kvm" output primary
-workspace "15 ansible" output primary
-workspace "16 term" output primary
-workspace "17 term" output $second_display
-workspace "18 code" output $second_display
-workspace "19 code" output $second_display
-workspace "20 postman" output $third_display
+workspace $ws1 output $laptop_display
+workspace $ws2 output $laptop_display
+workspace $ws3 output $laptop_display
+workspace $ws4 output $second_display
+workspace $ws5 output $laptop_display
+workspace $ws6 output $second_display
+workspace $ws7 output $second_display
+workspace $ws8 output $third_display
+workspace $ws9 output $second_display
+workspace $ws10 output $third_display
+workspace $ws11 output primary
+workspace $ws12 output primary
+workspace $ws13 output $third_display
+workspace $ws14 output primary
+workspace $ws15 output primary
+workspace $ws16 output primary
+workspace $ws17 output $second_display
+workspace $ws18 output $second_display
+workspace $ws19 output $second_display
+workspace $ws20 output $third_display
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -285,7 +285,6 @@ bindsym $mod+r mode "resize"
 #assign [class="barrier"] $ws1
 assign [class="Arandr"] $ws1
 assign [class="Slack"] $ws2
-assign [class="obsidian"] $ws3
 assign [class="firefox"] $ws4
 assign [class="draw.io"] $ws6
 assign [class="Virt-manager"] $ws16
@@ -293,19 +292,13 @@ assign [class="Plex"] $ws13
 
 
 #autostart
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec_always --no-startup-id exec "sleep 5; autorandr --change"
+exec_always --no-startup-id exec "sleep 3; autorandr --change"
+exec_always --no-startup-id exec "sleep 5; $HOME/.config/polybar/launch.sh"
 exec --no-startup-id i3-msg 'workspace 1; exec wezterm start htop; workspace 1'
-#exec --no-startup-id nice -n 19 barrier
-#exec --no-startup-id nice -n 19 input-leap
 exec --no-startup-id arandr
 exec --no-startup-id slack
-#exec --no-startup-id i3-msg 'workspace 3; exec wezterm start nvim ~/obsidian/fortanix; workspace 3'
-#exec --no-startup-id obsidian
 exec firefox;
-# exec --no-startup-id i3-msg 'workspace 4; exec firefox; workspace 4;'
 #exec --no-startup-id drawio
 #exec --no-startup-id virt-manager
-#exec_always --no-startup-id compton --config ~/.config/compton.conf
 exec_always --no-startup-id exec "sleep 5; nitrogen --restore"
 
