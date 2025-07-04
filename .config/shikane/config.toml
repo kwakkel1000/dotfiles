@@ -1,0 +1,11 @@
+[[profile]]
+name = "mobile"
+
+[[profile.output]]
+enable = true
+search = ["m=0x09E4", "s=", "v=BOE"]
+mode = "1920x1080@60Hz"
+position = "0,0"
+scale = 1.0
+transform = "normal"
+adaptive_sync = false

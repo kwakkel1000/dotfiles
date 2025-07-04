@@ -6,13 +6,13 @@
     "spacing": 1, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": [
-        "sway/workspaces",
         "sway/mode",
         "sway/scratchpad",
-        "custom/media"
+        "custom/media",
+        "sway/window",
     ],
     "modules-center": [
-        "sway/window",
+        "sway/workspaces",
         "clock"
     ],
     "modules-right": [
@@ -41,13 +41,19 @@
         "format": "{name}: {icon}",
         "format-icons": {
             "1": "",
-            "2 slack": "",
+            "2 ": "",
+            //"2 slack": "",
             "3": "",
-            "4 web": "",
-            "5 web": "",
-            "6 web": "",
-            "7 web": "",
-            "8 web": "",
+            "4 ": "",
+            "5 ": "",
+            "6 ": "",
+            "7 ": "",
+            "8 ": "",
+            //"4 web": "",
+            //"5 web": "",
+            //"6 web": "",
+            //"7 web": "",
+            //"8 web": "",
             "9": "",
             "10": "",
             "11": "",
@@ -55,11 +61,16 @@
             "13 plex": "",
             "14 kvm": "",
             "15 ansible": "",
-            "16 term": "",
-            "17 term": "",
-            "18 code": "",
-            "19 code": "",
-            "20 term": "",
+            "16 ": "",
+            "17 ": "",
+            "18 ": "",
+            "19 ": "",
+            "20 ": "",
+            //"16 term": "",
+            //"17 term": "",
+            //"18 code": "",
+            //"19 code": "",
+            //"20 term": "",
             "urgent": "",
             "focused": "",
             "default": ""
@@ -123,8 +134,8 @@
     },
     "clock": {
         "interval": 1,
-        "format": "{:%H:%M:%S  }",
-        "format-alt": "{:%A, %d-%m-%Y (%T)}",
+        "format": "{:%d-%m - %H:%M:%S}",
+        "format-alt": "{:%A, %d-%m-%Y %T }",
 
         //"tooltip": true,
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
@@ -187,7 +198,8 @@
     },
     "backlight": {
         // "device": "acpi_video1",
-        "format": "{percent}% {icon}",
+        "format": "{icon}",
+        // "format": "{percent}% {icon}",
         "format-icons": ["", "", "", "", "", "", "", "", ""]
     },
     "battery": {
@@ -202,7 +214,8 @@
         //"format-alt": "{time} {icon}",
         "format-time": "{H}:{m}",
         // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
+        // "format-good": "",
+        "format-full": "",
         "format-icons": ["", "", "", "", ""]
     },
     "battery#bat2": {

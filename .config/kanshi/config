@@ -1,0 +1,26 @@
+output "Dell Inc. DELL S2721DGF G52TR83" {
+  mode 2560x1440@165.08
+  position 1280,0
+  scale 2
+  alias $HOME_1
+}
+
+output "eDP-1" {
+  mode 1920x1080@60
+  position 0,0
+  scale 2
+  alias $INTERNAL
+}
+
+
+profile mobile {
+  output $INTERNAL enable
+}
+
+profile work {
+  output $INTERNAL enable
+}
+
+profile home_office {
+  output $INTERNAL enable
+}
