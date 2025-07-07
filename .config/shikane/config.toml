@@ -9,3 +9,33 @@ position = "0,0"
 scale = 1.0
 transform = "normal"
 adaptive_sync = false
+
+[[profile]]
+name = "work"
+
+[[profile.output]]
+enable = true
+search = ["m=PL2483H", "s=1173721113596", "v=Iiyama North America"]
+mode = "1920x1080@60Hz"
+position = "1080,0"
+scale = 1.0
+transform = "normal"
+adaptive_sync = false
+
+[[profile.output]]
+enable = true
+search = ["m=PL2483H", "s=1173721113598", "v=Iiyama North America"]
+mode = "1920x1080@60Hz"
+position = "3000,0"
+scale = 1.0
+transform = "normal"
+adaptive_sync = false
+
+[[profile.output]]
+enable = true
+search = ["m=0x09E4", "s=", "v=BOE"]
+mode = "1920x1080@60Hz"
+position = "0,1080"
+scale = 1.0
+transform = "normal"
+adaptive_sync = false
