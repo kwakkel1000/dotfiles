@@ -21,8 +21,9 @@
         "pulseaudio",
         "network",
         "cpu",
-        "memory",
         "temperature#cpu",
+        "memory",
+        "disk",
         // "temperature",
         "backlight",
         // "sway/language",
@@ -177,6 +178,10 @@
     },
     "memory": {
         "format": "{}% "
+    },
+    "disk": {
+        "format": "{free} 🖴",
+        "unit": "GiB"
     },
     "temperature": {
         "interval": 1,
