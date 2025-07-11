@@ -106,13 +106,16 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # move focused workspace between monitors
-bindsym $mod+ctrl+greater move workspace to output right
+bindsym $mod+Ctrl+comma move workspace to output right
+bindsym $mod+Ctrl+period move workspace to output left
+bindsym $mod+Ctrl+greater move workspace to output right
 bindsym $mod+Ctrl+less move workspace to output left
 # bindsym $mod+Ctrl+greater move workspace to output right
 # bindsym $mod+Ctrl+less move workspace to output left
 
-# reload swaybar
-bindsym $mod+s exec $reload_waybar
+bar {
+    swaybar_command waybar
+}
 
 bindsym $mod+Ctrl+Shift+s exec "/home/gijskwakkel/.cargo/bin/shikane -o"
 workspace_auto_back_and_forth yes
@@ -152,8 +155,8 @@ set $ws20 "20 "
 # set $ws20 "20 term"
 
 set $laptop_display eDP-1
-set $second_display DP-3-3 DP-3-6
-set $third_display DP-3-2 DP-3-5
+set $second_display DP-3-3 DP-3-6 DP-7
+set $third_display DP-3-2 DP-3-5 DP-6
 
 workspace $ws1 output $laptop_display
 workspace $ws2 output $laptop_display
@@ -271,8 +274,7 @@ exec_always systemctl --user start sway-session.target
 # Auto screen layout
 exec ~/.cargo/bin/shikane
 exec_always ~/.cargo/bin/shikane -o
-# Status bar
-exec waybar
+
 
 
 # autostart apps
