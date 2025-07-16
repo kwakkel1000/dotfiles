@@ -39,3 +39,33 @@ position = "0,1080"
 scale = 1.0
 transform = "normal"
 adaptive_sync = false
+
+[[profile]]
+name = "home"
+
+[[profile.output]]
+enable = true
+search = ["m=LG ULTRAFINE", "s=110NTRL4M214", "v=LG Electronics"]
+mode = "2560x1440@59.951Hz"
+position = "1920,175"
+scale = 1.0
+transform = "normal"
+adaptive_sync = false
+
+[[profile.output]]
+enable = true
+search = ["m=27GL850", "s=004NTHMC7513", "v=LG Electronics"]
+mode = "2560x1440@59.951Hz"
+position = "4479,175"
+scale = 1.0
+transform = "normal"
+adaptive_sync = false
+
+[[profile.output]]
+enable = true
+search = ["m=0x09E4", "s=", "v=BOE"]
+mode = "1920x1080@60Hz"
+position = "0,431"
+scale = 1.0
+transform = "normal"
+adaptive_sync = false

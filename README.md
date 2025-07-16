@@ -74,4 +74,10 @@ $JAVA -Djava.net.useSystemProxies=true $HEADLESS -jar /usr/share/plantuml/plantu
 $JAVA -Djava.net.useSystemProxies=true $HEADLESS -jar /usr/share/plantuml/plantuml-latest.jar "$@"
 
 
+### Waybar ###
+in /opt
+git clone https://github.com/bjesus/wttrbar.git
+cargo build --release
+cp target/release/wttrbar ~/dotfiles/.config/waybar/
+
 

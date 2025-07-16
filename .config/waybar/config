@@ -3,13 +3,14 @@
     // "position": "bottom", // Waybar position (top|bottom|left|right)
     "height": 33, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
-    "spacing": 1, // Gaps between modules (4px)
+    "spacing": 2, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": [
         "sway/mode",
-        "sway/scratchpad",
-        "custom/media",
-        "sway/window",
+        // "sway/scratchpad",
+        "custom/spotify",
+        // "custom/media",
+        "sway/window"
     ],
     "modules-center": [
         "sway/workspaces",
@@ -19,7 +20,13 @@
         // "mpd",
         "idle_inhibitor",
         "pulseaudio",
-        "network",
+        "network#wifi",
+        "network#client",
+        "network#management",
+        "network#sam",
+        "network#samstage",
+        "network#samtest",
+        "network#samnightly",
         "cpu",
         "temperature#cpu",
         "memory",
@@ -31,6 +38,8 @@
         "battery",
         // "battery#bat2",
         // "clock", 
+        "custom/weather",
+        "custom/updates",
         "power-profiles-daemon",
         "bluetooth",
         "tray"
@@ -79,15 +88,15 @@
         }
     },
     "power-profiles-daemon": {
-      "format": "{icon}",
-      "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
-      "tooltip": true,
-      "format-icons": {
-        "default": "",
-        "performance": "",
-        "balanced": "",
-        "power-saver": ""
-      }
+        "format": "{icon}",
+        "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+        "tooltip": true,
+        "format-icons": {
+            "default": "",
+            "performance": "",
+            "balanced": "",
+            "power-saver": ""
+        }
     },
     "keyboard-state": {
         "numlock": true,
@@ -104,7 +113,10 @@
     "sway/scratchpad": {
         "format": "{icon} {count}",
         "show-empty": false,
-        "format-icons": ["", ""],
+        "format-icons": [
+            "",
+            ""
+        ],
         "tooltip": true,
         "tooltip-format": "{app}: {title}"
     },
@@ -152,41 +164,40 @@
         "interval": 1,
         "format": "{:%d-%m - %H:%M:%S}",
         "format-alt": "{:%A, %d-%m-%Y %T }",
-
         //"tooltip": true,
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
         // doesn't work
-        //"tooltip-format": "{tz_list}",
-
+        "smooth-scrolling-threshold": 10, // This value was tested using a trackpad, it should be lowered if using a mouse.
+        // "tooltip-format": "{tz_list}",
         // useless now
         "timezones": [
             "Europe/Amsterdam",
-            "America/Los_Angeles",
+            "America/Los_Angeles"
         ],
-
         "calendar": {
-                    "mode"          : "month",
-                    "weeks-pos"     : "right",
-                    "format": {
-                              "months":     "<span color='#ffead3'><b>{}</b></span>",
-                              "days":       "<span color='#ecc6d9'><b>{}</b></span>",
-                              "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
-                              "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
-                              "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
-                              }
-                    },
-        "actions":  {
-                    "on-click-right": "mode",
-                    "on-scroll-up": "tz_up",
-                    "on-scroll-down": "tz_down",
-                    "on-scroll-up": "shift_up",
-                    "on-scroll-down": "shift_down"
-                    }
+            "mode": "month",
+            "weeks-pos": "right",
+            "format": {
+                "months": "<span color='#ffead3'><b>{}</b></span>",
+                "days": "<span color='#ecc6d9'><b>{}</b></span>",
+                "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+                "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+                "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+            }
+        },
+        "actions": {
+            "on-click-right": "mode",
+            "on-scroll-up": "tz_up",
+            "on-scroll-down": "tz_down"
+            // "on-scroll-up": "shift_up",
+            // "on-scroll-down": "shift_down"
+        }
     },
     "cpu": {
-        "interval": 1,
+        "interval": 2,
         "format": "{usage}% ",
-        "tooltip": false
+        "tooltip": false,
+        "width": 40
     },
     "memory": {
         "format": "{}% "
@@ -196,17 +207,19 @@
         "unit": "GiB"
     },
     "temperature": {
-        "interval": 1,
+        "interval": 2,
         // "thermal-zone": 2,
         // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
         "critical-threshold": 80,
         // "format-critical": "{temperatureC}°C {icon}",
         "format": "{temperatureC}°C {icon}",
         //"format-icons": ["", "", ""]
-        "format-icons": [""]
+        "format-icons": [
+            ""
+        ]
     },
     "temperature#cpu": {
-        "interval": 1,
+        "interval": 2,
         // "thermal-zone": 2,
         // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
         "hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon8/temp1_input",
@@ -214,19 +227,31 @@
         // "format-critical": "{temperatureC}°C {icon}",
         "format": "{temperatureC}°C {icon}",
         //"format-icons": ["", "", ""]
-        "format-icons": [""]
+        "format-icons": [
+            ""
+        ]
     },
     "backlight": {
         // "device": "acpi_video1",
         "format": "{icon}",
         // "format": "{percent}% {icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
     },
     "battery": {
         "states": {
             "good": 95,
-            "warning": 30,
-            "critical": 15
+            "warning": 20,
+            "critical": 10
         },
         "format": "{capacity}% {time} {icon}",
         "format-charging": "{capacity}% {time} ",
@@ -236,7 +261,13 @@
         // "format-good": "", // An empty format will hide the module
         // "format-good": "",
         "format-full": "",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
     },
     "battery#bat2": {
         "bat": "BAT2"
@@ -252,13 +283,61 @@
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
         "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
     },
-    "network": {
+    "network#wifi": {
+        "interface": "wlp0s20f3",
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ⚠",
+        "tooltip-format": "{ifname} via {gwaddr} ",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": " ⚠",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+    "network#client": {
+        "interface": "client*", // (Optional) To force the use of this interface
+        "format-ethernet": "{ipaddr}/{cidr} 🖧",
+        "tooltip-format": "{ifname} via {gwaddr} 🖧",
+        "format-linked": "{ifname} (No IP) 🖧",
+        "format-disconnected": "",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+    "network#management": {
+        "interface": "management*", // (Optional) To force the use of this interface
+        "format-ethernet": "{ipaddr}/{cidr} 🖧",
+        "tooltip-format": "{ifname} via {gwaddr} 🖧",
+        "format-linked": "{ifname} (No IP) 🖧",
+        "format-disconnected": "",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+    "network#sam": {
+        "interface": "sam", // (Optional) To force the use of this interface
+        "format-ethernet": "sam 🔒",
+        "tooltip-format": "{ifname} {ipaddr} 🔒",
+        "format-linked": "{ifname} (No IP) 🔒",
+        "format-disconnected": "{ifname} 🔓",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+    "network#samstage": {
+        "interface": "samstage", // (Optional) To force the use of this interface
+        "format-ethernet": "sam stage 🔒",
+        "tooltip-format": "{ifname} {ipaddr} 🔒",
+        "format-linked": "{ifname} (No IP) 🔒",
+        "format-disconnected": "",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+    "network#samtest": {
+        "interface": "samtest", // (Optional) To force the use of this interface
+        "format-ethernet": "sam test 🔒",
+        "tooltip-format": "{ifname} {ipaddr} 🔒",
+        "format-linked": "{ifname} (No IP) 🔒",
+        "format-disconnected": "",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+    "network#samnightly": {
+        "interface": "samnightly", // (Optional) To force the use of this interface
+        "format-ethernet": "sam nightly 🔒",
+        "tooltip-format": "{ifname} {ipaddr} 🔒",
+        "format-linked": "{ifname} (No IP) 🔒",
+        "format-disconnected": "",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "pulseaudio": {
@@ -271,14 +350,32 @@
         "format-source-muted": "",
         "format-icons": {
             "headphone": "",
-            "hands-free": "",
-            "headset": "",
+            "hands-free": "",
+            "headset": "",
             "phone": "",
             "portable": "",
             "car": "",
-            "default": ["", "", ""]
+            "default": [
+                "",
+                "",
+                ""
+            ]
         },
         "on-click": "pavucontrol"
+    },
+    "custom/spotify": {
+        "format": "{icon} {}",
+        "escape": true,
+        "return-type": "json",
+        "max-length": 20,
+        // "interval": 30, // Remove this if your script is endless and write in loop
+        "on-click": "playerctl -p spotify play-pause",
+        "on-click-right": "killall spotify",
+        "smooth-scrolling-threshold": 10, // This value was tested using a trackpad, it should be lowered if using a mouse.
+        "on-scroll-up": "playerctl -p spotify next",
+        "on-scroll-down": "playerctl -p spotify previous",
+        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null", // Script in resources/custom_modules folder
+        "exec-if": "pgrep spotify"
     },
     "custom/media": {
         "format": "{icon} {}",
@@ -291,6 +388,25 @@
         "escape": true,
         "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
         // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+    },
+    "custom/weather": {
+        "format": "{}°",
+        "tooltip": true,
+        "interval": 3600,
+        "exec": "$HOME/.config/waybar/wttrbar --location Lienden",
+        "return-type": "json"
+    },
+    "custom/updates": {
+        "exec": "$HOME/.config/waybar/checkupdates", // <--- path to script
+        "on-click": "$HOME/.config/waybar/checkupdates", // refresh on click
+        "interval": 900, // refresh every 15 minutes
+        "return-type": "json",
+        "format": " {icon}",
+        // "format": " {} {icon}",
+        "format-icons": {
+            "has-updates": "", // icon when updates needed
+            "updated": "" // icon when all packages updated
+        }
     }
 }
-
+// vim:ft=jsonc
