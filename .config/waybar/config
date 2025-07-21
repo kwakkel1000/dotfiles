@@ -393,7 +393,9 @@
         "format": "{}°",
         "tooltip": true,
         "interval": 3600,
-        "exec": "$HOME/.config/waybar/wttrbar --location Lienden",
+        // "exec": "$HOME/.config/waybar/wttrbar",
+        "exec": "$HOME/.config/waybar/wttrbar -l nl --location Lienden",
+        // "exec": "$HOME/.config/waybar/wttrbar --location Lienden",
         "return-type": "json"
     },
     "custom/updates": {
@@ -402,7 +404,8 @@
         "interval": 900, // refresh every 15 minutes
         "return-type": "json",
         "format": " {icon}",
-        // "format": " {} {icon}",
+        "tooltip-format": "{}",
+        "tooltip": true,
         "format-icons": {
             "has-updates": "", // icon when updates needed
             "updated": "" // icon when all packages updated
