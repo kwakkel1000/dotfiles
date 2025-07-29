@@ -31,8 +31,10 @@ bindsym $mod+Shift+r exec --no-startup-id swaymsg reload
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
 # PRINTSCREEN
-bindsym --release Print exec "scrot ~/Pictures/%Y-%m-%d-%H%M%S.png"
-bindsym --release $mod+Print exec "scrot -s ~/Pictures/%Y-%m-%d-%H%M%S.png"
+# bindsym --release Print exec "scrot ~/Pictures/%Y-%m-%d-%H%M%S.png"
+# bindsym --release $mod+Print exec "scrot -s ~/Pictures/%Y-%m-%d-%H%M%S.png"
+bindsym --release Print exec "grim"
+bindsym --release $mod+Print exec "grim -g \"$(slurp)\""
 
 # LOCKING
 # Auto lock

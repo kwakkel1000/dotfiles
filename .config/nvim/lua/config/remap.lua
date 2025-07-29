@@ -43,5 +43,5 @@ vim.keymap.set("n", "<leader>SO", function()
 end)
 
 
-vim.keymap.set("x", "<leader>rn", [[:silent '<,'>s/\\[rn]/\r/g<CR>]],
+vim.keymap.set("x", "<leader>rn", [[:<C-u>'<,'>s/\\n/\r/g<CR>]],
     { desc = 'replace \\r\\n to new line ⏎', noremap = true, silent = true })
