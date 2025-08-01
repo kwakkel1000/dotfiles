@@ -33,8 +33,8 @@ bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. 
 # PRINTSCREEN
 # bindsym --release Print exec "scrot ~/Pictures/%Y-%m-%d-%H%M%S.png"
 # bindsym --release $mod+Print exec "scrot -s ~/Pictures/%Y-%m-%d-%H%M%S.png"
-bindsym --release Print exec "grim"
-bindsym --release $mod+Print exec "grim -g \"$(slurp)\""
+bindsym --release Print exec "env GRIM_DEFAULT_DIR=/home/gijskwakkel/Pictures grim"
+bindsym --release $mod+Print exec 'env GRIM_DEFAULT_DIR=/home/gijskwakkel/Pictures grim -g "$(slurp)"'
 
 # LOCKING
 # Auto lock
@@ -114,6 +114,12 @@ bindsym $mod+Ctrl+greater move workspace to output right
 bindsym $mod+Ctrl+less move workspace to output left
 # bindsym $mod+Ctrl+greater move workspace to output right
 # bindsym $mod+Ctrl+less move workspace to output left
+
+# Notification Daemon
+exec swaync
+
+# Toggle control center
+bindsym $mod+Shift+n exec swaync-client -t -sw
 
 bar {
     swaybar_command waybar
@@ -272,7 +278,7 @@ focus_follows_mouse always
 
 # Fixes xdg-desktop-portal somehow
 exec dbus-update-activation-environment --systemd SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE
-exec_always systemctl --user start sway-session.target
+exec systemctl --user start sway-session.target
 # Auto screen layout
 exec ~/.cargo/bin/shikane
 exec_always ~/.cargo/bin/shikane -o
