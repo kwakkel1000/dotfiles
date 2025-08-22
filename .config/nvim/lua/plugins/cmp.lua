@@ -54,7 +54,7 @@ return {
                 sorting = {
                     priority_weight = 1.0,
                     comparators = {
-                        require('cmp_tabnine.compare'),
+                        -- require('cmp_tabnine.compare'),
                         -- compare.score_offset, -- not good at all
                         compare.locality,
                         compare.recently_used,
@@ -87,7 +87,7 @@ return {
                     end,
                 },
                 sources = {
-                    { name = "cmp_tabnine",            priority = 9 },
+                    -- { name = "cmp_tabnine",            priority = 9 },
                     { name = "buffer" },
                     { name = "nvim_lsp",               priority = 8 },
                     { name = "nvim_lsp_signature_help" },
@@ -107,7 +107,7 @@ return {
                                 luasnip = "[LuaSnip]",
                                 nvim_lua = "[Lua]",
                                 latex_symbols = "[Latex]",
-                                cmp_tabnine = "T9",
+                                -- cmp_tabnine = "T9",
                             })
                         })(entry, vim_item)
                         --vim.print(vim_item)

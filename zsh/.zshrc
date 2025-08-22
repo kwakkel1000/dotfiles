@@ -4,7 +4,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH="/home/gijskwakkel/.oh-my-zsh"
 
-export PATH="$PATH:/opt/nvim-linux64/bin:/home/gijskwakkel/.cargo/bin:$HOME/bin"
+export PATH="$PATH:/opt/nvim-linux64/bin:/home/gijskwakkel/.cargo/bin:$HOME/.local/bin"
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -140,3 +140,17 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # export SSH_AUTH_SOCK=/run/fortanix/sam/ssh-user-agent.sock
+
+# Function to choose AWS profile interactively
+choose_aws_profile() {
+    local tmpfile
+    tmpfile=$(mktemp)
+    AWS_PROFILE_TEMP_FILE="$tmpfile" "$HOME/.local/bin/choose_aws_profile.py"
+    if [ -s "$tmpfile" ]; then
+        local chosen_profile
+        chosen_profile=$(cat "$tmpfile")
+        export AWS_DEFAULT_PROFILE="$chosen_profile"
+        echo "AWS_DEFAULT_PROFILE set to $chosen_profile"
+    fi
+    rm -f "$tmpfile"
+}

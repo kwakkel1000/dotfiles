@@ -14,5 +14,4 @@ cp .config/sway/sway-session.target $HOME/.config/systemd/user/sway-session.targ
 
 echo "https://github.com/lsd-rs/lsd/releases"
 
-mkdir "$HOME/bin"
-ln -s "bin/readcert" "$HOME/bin/readcert"
+ln -s "bin/readcert" "$HOME/.local/bin/readcert"

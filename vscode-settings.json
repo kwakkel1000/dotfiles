@@ -5,6 +5,8 @@
         "cargo",
         "clippy",
         "--message-format=json",
+        "-p",
+        "hackfort*",
         "--no-deps",
         "--",
         "-W",
