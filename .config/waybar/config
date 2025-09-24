@@ -41,6 +41,7 @@
         "custom/weather",
         "custom/updates",
         "power-profiles-daemon",
+        "systemd-failed-units",
         "bluetooth",
         "tray"
     ],

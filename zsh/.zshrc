@@ -79,6 +79,7 @@ plugins=(git
     sudo
     screen
     vi-mode
+    colorize
     # rust
     per-directory-history)
 #plugins=(git sudo screen per-directory-history ripgrep ssh-agent)
