@@ -80,4 +80,6 @@ git clone https://github.com/bjesus/wttrbar.git
 cargo build --release
 cp target/release/wttrbar ~/dotfiles/.config/waybar/
 
-
+### FZF ###
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install

@@ -155,3 +155,10 @@ choose_aws_profile() {
     fi
     rm -f "$tmpfile"
 }
+
+### Fuzzy Find ###
+# Open in tmux popup if on tmux, otherwise use --height mode
+export FZF_DEFAULT_OPTS='--height 40% --tmux bottom,40% --layout reverse --border top'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
