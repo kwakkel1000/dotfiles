@@ -83,3 +83,6 @@ cp target/release/wttrbar ~/dotfiles/.config/waybar/
 ### FZF ###
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
+
+### Which Key TMUX ###
+git clone --recursive https://github.com/alexwforsythe/tmux-which-key $HOME/.tmux/plugins/

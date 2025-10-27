@@ -21,6 +21,7 @@
         "idle_inhibitor",
         "pulseaudio",
         "network#wifi",
+        "network#eth0",
         "network#client",
         "network#management",
         "network#sam",
@@ -291,6 +292,14 @@
         "tooltip-format": "{ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": " ⚠",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+    "network#eth0": {
+        "interface": "eth0", // (Optional) To force the use of this interface
+        "format-ethernet": "{ipaddr}/{cidr} 🖧",
+        "tooltip-format": "{ifname} via {gwaddr} 🖧",
+        "format-linked": "{ifname} (No IP) 🖧",
+        "format-disconnected": "",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "network#client": {

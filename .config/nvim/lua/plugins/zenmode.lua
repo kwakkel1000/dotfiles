@@ -11,7 +11,7 @@ return {
                         enabled = true,
                     },
                     wezterm = {
-                        enabled = true,
+                        enabled = false,
                     }
                 },
             }
@@ -35,7 +35,8 @@ return {
                 })
                 vim.wo.wrap = false
                 vim.wo.number = true
-                vim.wo.rnu = true
+                vim.wo.rnu = false
+                -- vim.wo.rnu = true
             end, { desc = "zen mode 180" })
 
 
@@ -57,6 +58,7 @@ return {
                     }
                 })
                 vim.wo.wrap = false
+                -- vim.wo.number = true
                 vim.wo.number = false
                 vim.wo.rnu = false
                 vim.opt.colorcolumn = "0"
