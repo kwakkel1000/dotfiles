@@ -122,6 +122,7 @@ alias vim="nvim"
 #alias ls="lsd"
 
 alias color='grim -g "$(slurp -p)" -t ppm - | convert - -format "%[pixel:p{0,0}]" txt:'
+alias cat='bat --paging=never'
 
 clippypn() {
     cargo clippy --workspace --no-deps -- -W clippy::pedantic -W clippy::nursery

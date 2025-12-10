@@ -35,8 +35,8 @@ bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. 
 # PRINTSCREEN
 # bindsym --release Print exec "scrot ~/Pictures/%Y-%m-%d-%H%M%S.png"
 # bindsym --release $mod+Print exec "scrot -s ~/Pictures/%Y-%m-%d-%H%M%S.png"
-bindsym --release Print exec "env GRIM_DEFAULT_DIR=/home/gijskwakkel/Pictures grim"
-bindsym --release $mod+Print exec 'env GRIM_DEFAULT_DIR=/home/gijskwakkel/Pictures grim -g "$(slurp)"'
+bindsym --release Print exec "env GRIM_DEFAULT_DIR=~/Pictures grim"
+bindsym --release $mod+Print exec 'env GRIM_DEFAULT_DIR=~/Pictures grim -g "$(slurp)"'
 
 # LOCKING
 # Auto lock
@@ -127,7 +127,7 @@ bar {
     swaybar_command waybar
 }
 
-bindsym $mod+Ctrl+Shift+s exec "/home/gijskwakkel/.cargo/bin/shikane -o"
+bindsym $mod+Ctrl+Shift+s exec "~/.cargo/bin/shikane -o"
 workspace_auto_back_and_forth yes
 
 # Define names for default workspaces for which we configure key bindings later on.
