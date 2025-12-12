@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+# Default session name, override with first argument
+SESSION_NAME="${1:-tree}"
+
+# Show help if requested or no args when expecting override
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    cat << EOF
+Usage: $0 [SESSION_NAME]
+
+Creates tmux windows for each subdirectory with split panes, or attaches if session exists.
+
+  SESSION_NAME  Custom session name (default: "dirs")
+  -h, --help    Show this help
+
+Examples:
+  $0                 # Uses default "tree"
+  $0 myproject       # Uses session name "myproject"
+EOF
+    exit 0
+fi
+
+# If session already exists, just attach and exit
+if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+    tmux attach-session -t "$SESSION_NAME"
+    exit 0
+fi
+
+# Otherwise create the session and windows
+tmux new-session -d -s "$SESSION_NAME" -n "master"
+
+for dir in */ ; do
+    [ -d "$dir" ] || continue
+    name="${dir%/}"
+
+    # Create window in directory
+    tmux new-window -t "$SESSION_NAME" -n "$name" -c "$(pwd)/$dir"
+
+    # Split that window (vertical split here)
+    tmux split-window -t "$SESSION_NAME:$name" -h -c "$(pwd)/$dir"
+done
+
+tmux attach-session -t "$SESSION_NAME"
