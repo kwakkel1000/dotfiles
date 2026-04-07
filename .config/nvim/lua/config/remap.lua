@@ -47,3 +47,4 @@ vim.keymap.set("x", "<leader>rn", [[:<C-u>'<,'>s/\\n/\r/g<CR>]],
     { desc = 'replace \\r\\n to new line ⏎', noremap = true, silent = true })
 
 vim.keymap.set("n", "<leader><tab>", "<C-6>", { desc = "Go to the previous buffer" })
+vim.keymap.set("n", "<leader>tw", ":set wrap!<CR>")
