@@ -12,26 +12,13 @@
         "clippy",
         "--message-format=json",
         "--no-deps",
-    //     "--",
-    //     "-W",
-    //     "clippy::pedantic",
-    //     "-W",
-    //     "clippy::nursery",
-    //     "-W",
-    //     "clippy::todo",
-    //     "-W",
-    //     "clippy::unwrap_used",
-    //     "-W",
-    //     "clippy::panic",
-    //     "-A",
-    //     "clippy::doc_markdown"
     ],
     "rust-analyzer.diagnostics.disabled": [
         "unresolved-proc-macro"
     ],
-    "rust-analyzer.cargo.features": [
-        "test"
-    ],
+    // "rust-analyzer.cargo.features": [
+    //     "test"
+    // ],
     "rust-analyzer.check.allTargets": true,
     "rust-analyzer.lru.capacity": 512,
     "rust-analyzer.cachePriming.enable": false,
