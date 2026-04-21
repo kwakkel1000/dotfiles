@@ -165,3 +165,5 @@ export FZF_DEFAULT_OPTS='--height 40% --tmux bottom,40% --layout reverse --borde
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# Prevent <C-D> from exiting bash (calls the `list-choices` widget by default in vi mode)
+setopt ignore_eof

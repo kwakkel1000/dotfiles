@@ -123,9 +123,9 @@ exec swaync
 # Toggle control center
 bindsym $mod+Shift+n exec swaync-client -t -sw
 
-bar {
-    swaybar_command waybar
-}
+# bar {
+#     swaybar_command waybar
+# }
 
 bindsym $mod+Ctrl+Shift+s exec "~/.cargo/bin/shikane -o"
 workspace_auto_back_and_forth yes
@@ -265,7 +265,7 @@ bindsym $mod+r mode "resize"
 ##=================================================##
 #      *** Workspace specific settings ***          #
 ##=================================================##
-assign [class="Slack"] $ws2
+assign [app_id="Slack"] $ws2
 assign [app_id="firefox_firefox"] $ws4
 assign [class="draw.io"] $ws6
 assign [class="Virt-manager"] $ws16
@@ -289,6 +289,7 @@ exec_always ~/.cargo/bin/shikane -o
 
 # autostart apps
 exec --no-startup-id slack
+exec alacritty
 exec firefox;
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
