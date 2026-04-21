@@ -161,7 +161,7 @@ return {
         --- can use this autocmd to handle edge cases like restarting servers
         --- that don't respond to `workspace/didChangeConfiguration` by
         --- restarting it.
-        live_reload = false,
+        live_reload = true,
         --- List of loader extensions to use when loading settings; `string` values will be `require`d
         loader_extensions = { 'codesettings.extensions.vscode' },
         --- Set up library paths for `lua_ls` automatically to pick up the generated type

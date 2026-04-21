@@ -1,0 +1,52 @@
+return {
+    "olimorris/codecompanion.nvim",
+    opts = {
+        adapters = {
+            ollama_remote = function()
+                return require("codecompanion.adapters.http").extend("ollama", {
+                    name = "ollama_remote",
+                    env = {
+                        url = "https://llm.gijsweb.net",
+                        api_key = "sk-5530d515a0a24467aecf547d69a0ef54",
+                        -- url = "http://llm1.tux.gijsweb.net:11434",
+                        -- url = "https://my_ollama_url",
+                        -- api_key = "OLLAMA_API_KEY",
+                    },
+                    headers = {
+                        ["Content-Type"] = "application/json",
+                        ["Authorization"] = "Bearer ${api_key}",
+                    },
+                    parameters = {
+                        sync = true,
+                    },
+                    schema = {
+                        model = {
+                            default = "llama3.1:latest",
+                            -- default = "llama3.1:70b",
+                        },
+                        num_ctx = {
+                            default = 16384,
+                        },
+                        num_predict = {
+                            default = -1,
+                        },
+                    },
+                })
+            end,
+        },
+        strategies = {
+            chat = {
+                adapter = "ollama_remote",
+            },
+            inline = {
+                adapter = "ollama_remote",
+            },
+            agent = {
+                adapter = "ollama_remote",
+            },
+        },
+    },
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+    },
+}

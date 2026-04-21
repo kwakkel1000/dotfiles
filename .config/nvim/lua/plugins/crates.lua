@@ -1,7 +1,8 @@
 return {
     "saecki/crates.nvim",
-    tag = 'v0.3.0',
+    tag = 'stable',
     requires = { "nvim-lua/plenary.nvim" },
+    event = { "BufRead Cargo.toml" },
     config = function()
         local crates = require("crates")
         --local opts = { silent = true }
