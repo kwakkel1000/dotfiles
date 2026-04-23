@@ -29,6 +29,8 @@ bindsym $mod+space exec "rofi -modi drun -show drun -config .config/rofi/config.
 # reload the configuration file
 bindsym $mod+Shift+c exec --no-startup-id swaymsg reload
 bindsym $mod+Shift+r exec --no-startup-id swaymsg reload
+# set $reload_waybar killall -SIGUSR2 waybar
+set $reload_waybar systemctl --user restart waybar
 # exit sway (logs you out of your session)
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
@@ -52,7 +54,6 @@ bindsym XF86MonBrightnessUp exec brightnessctl s +10%
 bindsym XF86MonBrightnessDown exec brightnessctl s 10%-
 
 # Use pactl to adjust volume in PulseAudio.
-set $reload_waybar killall -SIGUSR2 waybar
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
